@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "updated": "2026-04-11",
+  "tasks": [
+    {
+      "id": "2026-04-11-001",
+      "title": "Verificar que dashboard-jlv.netlify.app carga bien en iPhone y laptop",
+      "project": "general",
+      "created": "2026-04-11",
+      "note": "Primera tarea de prueba enviada por Claude"
+    }
+  ]
+}

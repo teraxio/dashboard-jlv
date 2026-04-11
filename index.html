@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Dashboard de Vida del Emprendedor — JLV</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#111111;--card:#1a1a1a;--border:#2a2a2a;--cyan:#00F5FF;--magenta:#CC00FF;--white:#FFFFFF;--gray:#888;--red:#FF4444;--yellow:#FFD700;--blue:#4488FF;--green:#00CC66}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--white);min-height:100vh;padding:12px;padding-bottom:80px}
+h1{font-size:1.3rem;text-align:center;padding:12px 0 4px;background:linear-gradient(90deg,var(--cyan),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{text-align:center;color:var(--gray);font-size:.75rem;margin-bottom:16px}
+.section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:14px}
+.section-title{font-size:.85rem;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.week-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.week-label{font-size:.9rem;font-weight:600;color:var(--cyan)}
+.btn{border:none;border-radius:8px;padding:8px 14px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s}
+.btn-cyan{background:var(--cyan);color:#000}
+.btn-magenta{background:var(--magenta);color:#fff}
+.btn-small{padding:5px 10px;font-size:.7rem;border-radius:6px}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--gray)}
+.btn-outline:hover{border-color:var(--cyan);color:var(--cyan)}
+.btn-red{background:var(--red);color:#fff}
+
+.progress-bar-bg{width:100%;height:20px;background:#222;border-radius:10px;overflow:hidden;position:relative}
+.progress-bar-fill{height:100%;border-radius:10px;transition:width .3s;background:linear-gradient(90deg,var(--cyan),var(--magenta))}
+.progress-text{position:absolute;top:0;left:0;right:0;height:20px;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+
+.metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.metric-card{background:#222;border-radius:10px;padding:12px;text-align:center}
+.metric-value{font-size:1.6rem;font-weight:800;background:linear-gradient(90deg,var(--cyan),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.metric-label{font-size:.65rem;color:var(--gray);margin-top:2px}
+
+.project-section{border-left:3px solid var(--cyan);padding-left:12px;margin-bottom:14px}
+.project-section.gzbr{border-color:var(--red)}
+.project-section.imaginat{border-color:var(--yellow)}
+.project-section.teraxio{border-color:var(--blue)}
+.project-name{font-size:.85rem;font-weight:700;margin-bottom:6px}
+.project-name.gzbr{color:var(--red)}
+.project-name.imaginat{color:var(--yellow)}
+.project-name.teraxio{color:var(--blue)}
+
+.task-input{width:100%;background:#222;border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:var(--white);font-size:.8rem;outline:none}
+.task-input:focus{border-color:var(--cyan)}
+.task-input::placeholder{color:#555}
+
+.day-row{margin-bottom:10px}
+.day-header{font-size:.78rem;font-weight:600;color:var(--gray);margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+.day-header .today-badge{background:var(--cyan);color:#000;font-size:.6rem;padding:2px 6px;border-radius:4px;font-weight:700}
+.blocks-row{display:flex;gap:6px;flex-wrap:wrap}
+.block-chip{display:flex;align-items:center;gap:4px;padding:6px 10px;border-radius:8px;font-size:.7rem;font-weight:600;cursor:pointer;user-select:none;transition:all .15s;border:1px solid transparent}
+.block-chip.prod{background:rgba(255,68,68,.15);color:var(--red);border-color:rgba(255,68,68,.3)}
+.block-chip.strat{background:rgba(255,215,0,.12);color:var(--yellow);border-color:rgba(255,215,0,.3)}
+.block-chip.tech{background:rgba(68,136,255,.15);color:var(--blue);border-color:rgba(68,136,255,.3)}
+.block-chip.free{background:rgba(255,255,255,.08);color:var(--gray);border-color:rgba(255,255,255,.15)}
+.block-chip.started{box-shadow:0 0 8px rgba(0,245,255,.3)}
+.block-chip.completed{opacity:.6;text-decoration:line-through}
+
+.block-detail{background:#1e1e1e;border-radius:8px;padding:10px;margin-top:6px;display:none}
+.block-detail.open{display:block}
+.block-time{font-size:.65rem;color:var(--gray);margin-top:4px}
+.note-input{width:100%;background:#222;border:1px solid var(--border);border-radius:6px;padding:6px 8px;color:var(--white);font-size:.75rem;outline:none;margin-top:6px}
+.note-input:focus{border-color:var(--cyan)}
+
+.victory-item{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.victory-item input{flex:1;background:#222;border:1px solid var(--border);border-radius:6px;padding:6px 8px;color:var(--white);font-size:.78rem;outline:none}
+.victory-item input:focus{border-color:var(--magenta)}
+.victory-delete{background:none;border:none;color:var(--red);cursor:pointer;font-size:1rem;padding:4px}
+
+.hours-table{width:100%;font-size:.75rem}
+.hours-table td{padding:4px 0}
+.hours-table .proj-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+
+.hidden{display:none}
+
+@media(min-width:500px){
+  body{max-width:480px;margin:0 auto}
+}
+</style>
+</head>
+<body>
+
+<h1>Dashboard de Vida del Emprendedor</h1>
+<p class="subtitle">Jos&eacute; Luis Valenzuela &bull; <span id="weekRange"></span></p>
+
+<div class="week-nav">
+  <button class="btn btn-outline btn-small" onclick="newWeek()">Nueva semana</button>
+  <span id="weekNumber" style="font-size:.75rem;color:var(--gray)"></span>
+</div>
+
+<!-- GZBR Progress -->
+<div class="section">
+  <div class="section-title">🚀 Lanzamiento GZBR</div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="gzbrProgress"></div>
+    <div class="progress-text" id="gzbrProgressText"></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:.65rem;color:var(--gray)">
+    <span id="weeksLeft"></span>
+    <span>Meta: 31 mayo 2026</span>
+  </div>
+</div>
+
+<!-- Metrics -->
+<div class="section">
+  <div class="section-title">📊 M&eacute;tricas</div>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-value" id="metricHours">0h</div>
+      <div class="metric-label">Horas esta semana</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" id="metricCompletion">0%</div>
+      <div class="metric-label">Bloques completados</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" id="metricStreak">0</div>
+      <div class="metric-label">Racha (d&iacute;as)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" id="metricTotal">0h</div>
+      <div class="metric-label">Total hist&oacute;rico</div>
+    </div>
+  </div>
+  <div style="margin-top:10px">
+    <div class="section-title" style="font-size:.75rem">Horas por proyecto esta semana</div>
+    <table class="hours-table">
+      <tr><td><span class="proj-dot" style="background:var(--red)"></span>GZBR</td><td style="text-align:right;color:var(--red)" id="hoursGZBR">0h</td></tr>
+      <tr><td><span class="proj-dot" style="background:var(--yellow)"></span>Imagina-T</td><td style="text-align:right;color:var(--yellow)" id="hoursImaginat">0h</td></tr>
+      <tr><td><span class="proj-dot" style="background:var(--blue)"></span>Teraxio</td><td style="text-align:right;color:var(--blue)" id="hoursTeraxio">0h</td></tr>
+      <tr><td><span class="proj-dot" style="background:var(--cyan)"></span>T&eacute;cnico</td><td style="text-align:right;color:var(--cyan)" id="hoursTech">0h</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- Tareas clave -->
+<div class="section">
+  <div class="section-title">🎯 Tareas clave del d&iacute;a</div>
+  <div class="project-section gzbr">
+    <div class="project-name gzbr">🔴 GZBR</div>
+    <input class="task-input" id="taskGZBR" placeholder="Tarea clave GZBR..." maxlength="120" oninput="saveKeyTasks()">
+  </div>
+  <div class="project-section imaginat">
+    <div class="project-name imaginat">🟡 Imagina-T</div>
+    <input class="task-input" id="taskImaginat" placeholder="Tarea clave Imagina-T..." maxlength="120" oninput="saveKeyTasks()">
+  </div>
+  <div class="project-section teraxio">
+    <div class="project-name teraxio">🔵 Teraxio</div>
+    <input class="task-input" id="taskTeraxio" placeholder="Tarea clave Teraxio..." maxlength="120" oninput="saveKeyTasks()">
+  </div>
+</div>
+
+<!-- Week View -->
+<div class="section">
+  <div class="section-title">📅 Semana</div>
+  <div id="weekView"></div>
+</div>
+
+<!-- Victorias -->
+<div class="section">
+  <div class="section-title">🏆 Victorias de la semana</div>
+  <div id="victoriesContainer"></div>
+  <button class="btn btn-outline btn-small" onclick="addVictory()" id="addVictoryBtn" style="margin-top:8px">+ Agregar victoria</button>
+</div>
+
+<!-- Block Detail Modal -->
+<div id="blockModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.85);z-index:100;padding:20px;overflow-y:auto">
+  <div style="max-width:400px;margin:60px auto 0;background:var(--card);border-radius:14px;padding:18px;border:1px solid var(--border)">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <div id="modalTitle" style="font-size:.9rem;font-weight:700"></div>
+      <button class="btn btn-outline btn-small" onclick="closeModal()">&times; Cerrar</button>
+    </div>
+    <div id="modalStartInfo" class="block-time"></div>
+    <div id="modalCompleteInfo" class="block-time"></div>
+    <div style="margin-top:12px">
+      <div id="modalActions"></div>
+    </div>
+    <div id="modalNoteSection" style="margin-top:10px">
+      <input class="note-input" id="modalNote" placeholder="Nota breve (m&aacute;x 80 chars)..." maxlength="80">
+    </div>
+  </div>
+</div>
+
+<script>
+const DAYS = ['Lun','Mar','Mi&eacute;','Jue','Vie','S&aacute;b','Dom'];
+const DAYS_FULL = ['Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado','Domingo'];
+const BLOCK_TYPES = [
+  {id:'prod',label:'🔴 Producci&oacute;n',project:'GZBR'},
+  {id:'strat',label:'🟡 Estrat&eacute;gico',project:'Imagina-T / Teraxio'},
+  {id:'tech',label:'🔵 T&eacute;cnico',project:'Claude Code'},
+  {id:'free',label:'⚪ Libre',project:'Descanso'}
+];
+const LAUNCH_DATE = new Date(2026, 4, 31);
+
+function getWeekKey(d) {
+  const date = new Date(d);
+  const day = date.getDay();
+  const diff = date.getDate() - day + (day === 0 ? -6 : 1);
+  const monday = new Date(date.setDate(diff));
+  return monday.toISOString().split('T')[0];
+}
+
+function getMonday(d) {
+  const date = new Date(d);
+  const day = date.getDay();
+  const diff = date.getDate() - day + (day === 0 ? -6 : 1);
+  return new Date(date.setDate(diff));
+}
+
+function formatDate(d) {
+  const months = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  return d.getDate() + ' ' + months[d.getMonth()];
+}
+
+function formatTime(ts) {
+  if (!ts) return '';
+  const d = new Date(ts);
+  return d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+}
+
+function getData() {
+  return JSON.parse(localStorage.getItem('jlv-dashboard') || '{}');
+}
+
+function saveData(data) {
+  localStorage.setItem('jlv-dashboard', JSON.stringify(data));
+}
+
+function getWeekData(weekKey) {
+  const data = getData();
+  if (!data.weeks) data.weeks = {};
+  if (!data.weeks[weekKey]) {
+    data.weeks[weekKey] = { blocks: {}, tasks: {}, victories: [] };
+  }
+  return data;
+}
+
+function currentWeekKey() {
+  return getWeekKey(new Date());
+}
+
+function updateGZBRProgress() {
+  const now = new Date();
+  const start = new Date(2026, 0, 1);
+  const total = (LAUNCH_DATE - start) / (1000*60*60*24*7);
+  const elapsed = (now - start) / (1000*60*60*24*7);
+  const pct = Math.min(100, Math.max(0, (elapsed / total) * 100));
+  const weeksLeft = Math.max(0, Math.ceil((LAUNCH_DATE - now) / (1000*60*60*24*7)));
+
+  document.getElementById('gzbrProgress').style.width = pct.toFixed(1) + '%';
+  document.getElementById('gzbrProgressText').textContent = pct.toFixed(0) + '% del timeline';
+  document.getElementById('weeksLeft').textContent = weeksLeft + ' semanas restantes';
+}
+
+function updateWeekLabel() {
+  const monday = getMonday(new Date());
+  const sunday = new Date(monday);
+  sunday.setDate(sunday.getDate() + 6);
+  document.getElementById('weekRange').textContent = formatDate(monday) + ' — ' + formatDate(sunday) + ' 2026';
+  const oneJan = new Date(monday.getFullYear(), 0, 1);
+  const wn = Math.ceil(((monday - oneJan) / 86400000 + oneJan.getDay() + 1) / 7);
+  document.getElementById('weekNumber').textContent = 'Semana ' + wn;
+}
+
+function renderWeek() {
+  const wk = currentWeekKey();
+  const data = getWeekData(wk);
+  const week = data.weeks[wk];
+  const monday = getMonday(new Date());
+  const today = new Date();
+  const todayStr = today.toISOString().split('T')[0];
+  let html = '';
+
+  for (let i = 0; i < 7; i++) {
+    const dayDate = new Date(monday);
+    dayDate.setDate(dayDate.getDate() + i);
+    const dayKey = dayDate.toISOString().split('T')[0];
+    const isToday = dayKey === todayStr;
+
+    html += '<div class="day-row">';
+    html += '<div class="day-header"><span>' + DAYS_FULL[i] + ' ' + dayDate.getDate() + '</span>';
+    if (isToday) html += '<span class="today-badge">HOY</span>';
+    html += '</div>';
+    html += '<div class="blocks-row">';
+
+    BLOCK_TYPES.forEach(bt => {
+      const blockId = dayKey + '_' + bt.id;
+      const block = (week.blocks && week.blocks[blockId]) || {};
+      let cls = 'block-chip ' + bt.id;
+      if (block.completed) cls += ' completed';
+      else if (block.started) cls += ' started';
+      html += '<div class="' + cls + '" onclick="openBlock(\'' + blockId + '\')">';
+      html += bt.id === 'prod' ? '🔴' : bt.id === 'strat' ? '🟡' : bt.id === 'tech' ? '🔵' : '⚪';
+      if (block.started && !block.completed) html += ' ▶';
+      if (block.completed) html += ' ✓';
+      html += '</div>';
+    });
+
+    html += '</div></div>';
+  }
+
+  document.getElementById('weekView').innerHTML = html;
+}
+
+let currentBlockId = null;
+
+function openBlock(blockId) {
+  currentBlockId = blockId;
+  const wk = currentWeekKey();
+  const data = getWeekData(wk);
+  const week = data.weeks[wk];
+  const block = (week.blocks && week.blocks[blockId]) || {};
+  const parts = blockId.split('_');
+  const typeId = parts[parts.length - 1];
+  const bt = BLOCK_TYPES.find(b => b.id === typeId);
+  const dayStr = blockId.replace('_' + typeId, '');
+
+  document.getElementById('modalTitle').innerHTML = bt.label + ' — ' + dayStr;
+  document.getElementById('modalStartInfo').textContent = block.started ? 'Iniciado: ' + formatTime(block.started) : '';
+  document.getElementById('modalCompleteInfo').textContent = block.completed ? 'Completado: ' + formatTime(block.completed) : '';
+  document.getElementById('modalNote').value = block.note || '';
+
+  let actions = '';
+  if (!block.started) {
+    actions = '<button class="btn btn-cyan" onclick="startBlock()">▶ Iniciar bloque</button>';
+  } else if (!block.completed) {
+    actions = '<button class="btn btn-magenta" onclick="completeBlock()">✓ Completar bloque</button>';
+  } else {
+    actions = '<span style="color:var(--green);font-size:.8rem;font-weight:600">✓ Bloque completado</span>';
+    const mins = Math.round((block.completed - block.started) / 60000);
+    const h = Math.floor(mins / 60);
+    const m = mins % 60;
+    actions += '<br><span style="font-size:.7rem;color:var(--gray)">Duraci&oacute;n: ' + (h > 0 ? h + 'h ' : '') + m + 'min</span>';
+  }
+  document.getElementById('modalActions').innerHTML = actions;
+  document.getElementById('blockModal').style.display = 'block';
+}
+
+function closeModal() {
+  if (currentBlockId) {
+    const wk = currentWeekKey();
+    const data = getWeekData(wk);
+    if (!data.weeks[wk].blocks) data.weeks[wk].blocks = {};
+    if (!data.weeks[wk].blocks[currentBlockId]) data.weeks[wk].blocks[currentBlockId] = {};
+    data.weeks[wk].blocks[currentBlockId].note = document.getElementById('modalNote').value;
+    saveData(data);
+  }
+  document.getElementById('blockModal').style.display = 'none';
+  currentBlockId = null;
+  renderWeek();
+  updateMetrics();
+}
+
+function startBlock() {
+  const wk = currentWeekKey();
+  const data = getWeekData(wk);
+  if (!data.weeks[wk].blocks) data.weeks[wk].blocks = {};
+  if (!data.weeks[wk].blocks[currentBlockId]) data.weeks[wk].blocks[currentBlockId] = {};
+  data.weeks[wk].blocks[currentBlockId].started = Date.now();
+  saveData(data);
+  openBlock(currentBlockId);
+}
+
+function completeBlock() {
+  const wk = currentWeekKey();
+  const data = getWeekData(wk);
+  data.weeks[wk].blocks[currentBlockId].completed = Date.now();
+  data.weeks[wk].blocks[currentBlockId].note = document.getElementById('modalNote').value;
+  saveData(data);
+  openBlock(currentBlockId);
+}
+
+function saveKeyTasks() {
+  const wk = currentWeekKey();
+  const data = getWeekData(wk);
+  const today = new Date().toISOString().split('T')[0];
+  if (!data.weeks[wk].tasks) data.weeks[wk].tasks = {};
+  data.weeks[wk].tasks[today] = {
+    gzbr: document.getElementById('taskGZBR').value,
+    imaginat: document.getElementById('taskImaginat').value,
+    teraxio: document.getElementById('taskTeraxio').value
+  };
+  saveData(data);
+}
+
+function loadKeyTasks() {
+  const wk = currentWeekKey();
+  const data = getWeekData(wk);
+  const today = new Date().toISOString().split('T')[0];
+  const tasks = (data.weeks[wk].tasks && data.weeks[wk].tasks[today]) || {};
+  document.getElementById('taskGZBR').value = tasks.gzbr || '';
+  document.getElementById('taskImaginat').value = tasks.imaginat || '';
+  document.getElementById('taskTeraxio').value = tasks.teraxio || '';
+}
+
+function renderVictories() {
+  const wk = currentWeekKey();
+  const data = getWeekData(wk);
+  const victories = data.weeks[wk].victories || [];
+  const container = document.getElementById('victoriesContainer');
+  let html = '';
+  victories.forEach((v, i) => {
+    html += '<div class="victory-item">';
+    html += '<span style="color:var(--magenta)">★</span>';
+    html += '<input value="' + escapeHtml(v) + '" oninput="updateVictory(' + i + ', this.value)" placeholder="Victoria #' + (i+1) + '...">';
+    html += '<button class="victory-delete" onclick="removeVictory(' + i + ')">&times;</button>';
+    html += '</div>';
+  });
+  container.innerHTML = html;
+  document.getElementById('addVictoryBtn').style.display = victories.length >= 3 ? 'none' : '';
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function addVictory() {
+  const wk = currentWeekKey();
+  const data = getWeekData(wk);
+  if (!data.weeks[wk].victories) data.weeks[wk].victories = [];
+  if (data.weeks[wk].victories.length >= 3) return;
+  data.weeks[wk].victories.push('');
+  saveData(data);
+  renderVictories();
+}
+
+function updateVictory(i, val) {
+  const wk = currentWeekKey();
+  const data = getWeekData(wk);
+  data.weeks[wk].victories[i] = val;
+  saveData(data);
+}
+
+function removeVictory(i) {
+  const wk = currentWeekKey();
+  const data = getWeekData(wk);
+  data.weeks[wk].victories.splice(i, 1);
+  saveData(data);
+  renderVictories();
+}
+
+function updateMetrics() {
+  const wk = currentWeekKey();
+  const data = getWeekData(wk);
+  const week = data.weeks[wk];
+  const blocks = week.blocks || {};
+
+  let totalMins = 0, startedCount = 0, completedCount = 0;
+  let hoursByType = {prod:0, strat:0, tech:0, free:0};
+
+  Object.keys(blocks).forEach(key => {
+    const b = blocks[key];
+    if (b.started) startedCount++;
+    if (b.completed) {
+      completedCount++;
+      const mins = (b.completed - b.started) / 60000;
+      totalMins += mins;
+      const typeId = key.split('_').pop();
+      hoursByType[typeId] = (hoursByType[typeId] || 0) + mins;
+    }
+  });
+
+  document.getElementById('metricHours').textContent = (totalMins / 60).toFixed(1) + 'h';
+  document.getElementById('metricCompletion').textContent = startedCount > 0 ? Math.round((completedCount / startedCount) * 100) + '%' : '0%';
+
+  document.getElementById('hoursGZBR').textContent = (hoursByType.prod / 60).toFixed(1) + 'h';
+  document.getElementById('hoursImaginat').textContent = ((hoursByType.strat / 60) * 0.5).toFixed(1) + 'h';
+  document.getElementById('hoursTeraxio').textContent = ((hoursByType.strat / 60) * 0.5).toFixed(1) + 'h';
+  document.getElementById('hoursTech').textContent = (hoursByType.tech / 60).toFixed(1) + 'h';
+
+  // Streak
+  let streak = 0;
+  const checkDate = new Date();
+  while (true) {
+    const dk = checkDate.toISOString().split('T')[0];
+    const cwk = getWeekKey(checkDate);
+    const wd = (data.weeks && data.weeks[cwk]) ? data.weeks[cwk] : null;
+    if (!wd || !wd.blocks) break;
+    const dayBlocks = Object.keys(wd.blocks).filter(k => k.startsWith(dk) && wd.blocks[k].completed);
+    if (dayBlocks.length > 0) {
+      streak++;
+      checkDate.setDate(checkDate.getDate() - 1);
+    } else {
+      if (dk !== new Date().toISOString().split('T')[0]) break;
+      checkDate.setDate(checkDate.getDate() - 1);
+    }
+  }
+  document.getElementById('metricStreak').textContent = streak;
+
+  // Total historic
+  let totalHistoric = 0;
+  if (data.weeks) {
+    Object.keys(data.weeks).forEach(wkey => {
+      const wb = data.weeks[wkey].blocks || {};
+      Object.values(wb).forEach(b => {
+        if (b.completed && b.started) totalHistoric += (b.completed - b.started) / 60000;
+      });
+    });
+  }
+  document.getElementById('metricTotal').textContent = (totalHistoric / 60).toFixed(1) + 'h';
+}
+
+function newWeek() {
+  if (!confirm('¿Archivar semana actual e iniciar nueva?')) return;
+  const wk = currentWeekKey();
+  const data = getWeekData(wk);
+  if (!data.archive) data.archive = [];
+  data.archive.push({ weekKey: wk, data: JSON.parse(JSON.stringify(data.weeks[wk])) });
+  saveData(data);
+  init();
+}
+
+function init() {
+  updateWeekLabel();
+  updateGZBRProgress();
+  renderWeek();
+  loadKeyTasks();
+  renderVictories();
+  updateMetrics();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+document.getElementById('blockModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+</script>
+</body>
+</html>

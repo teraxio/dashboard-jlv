@@ -576,6 +576,7 @@ function renderClaudeTasks(tasks) {
 }
 
 function deleteClaudeTask(id) {
+  if (!confirm('¿Seguro que quieres quitar esta tarea del panel?')) return;
   const data = getData();
   if (!data.claudeDeleted) data.claudeDeleted = [];
   if (!data.claudeDeleted.includes(id)) data.claudeDeleted.push(id);

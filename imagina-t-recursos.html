@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imagina-T — Recursos NotebookLM</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d1117;
+  --card:#161b22;
+  --border:#21262d;
+  --teal:#2E7D7B;
+  --teal-light:#3a9997;
+  --coral:#E8927C;
+  --coral-light:#ecaa97;
+  --lavanda:#9B8EC4;
+  --lavanda-light:#b0a4d4;
+  --text:#e6edf3;
+  --muted:#8b949e;
+}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  padding:24px 16px 60px;
+  line-height:1.5;
+}
+.container{max-width:1100px;margin:0 auto}
+header{text-align:center;margin-bottom:32px}
+h1{
+  font-size:2rem;
+  font-weight:700;
+  background:linear-gradient(90deg,var(--teal-light),var(--coral-light),var(--lavanda-light));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  margin-bottom:8px;
+}
+.subtitle{color:var(--muted);font-size:.95rem;margin-bottom:20px;padding:0 12px}
+.header-links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.header-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--text);
+  padding:10px 18px;
+  border-radius:10px;
+  text-decoration:none;
+  font-size:.85rem;
+  font-weight:600;
+  transition:all .2s;
+}
+.header-btn:hover{border-color:var(--teal);color:var(--teal-light);transform:translateY(-1px)}
+.grid{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:720px){.grid{grid-template-columns:1fr 1fr}}
+@media(min-width:1024px){.grid{grid-template-columns:1fr 1fr 1fr}}
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:22px 20px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  transition:border-color .2s,transform .2s;
+}
+.card:hover{transform:translateY(-2px)}
+.card.teal{border-top:3px solid var(--teal)}
+.card.teal:hover{border-color:var(--teal)}
+.card.coral{border-top:3px solid var(--coral)}
+.card.coral:hover{border-color:var(--coral)}
+.card.lavanda{border-top:3px solid var(--lavanda)}
+.card.lavanda:hover{border-color:var(--lavanda)}
+.card-emoji{font-size:2rem;line-height:1}
+.card-title{font-size:1.1rem;font-weight:700;color:var(--text)}
+.card-desc{font-size:.85rem;color:var(--muted);flex:1}
+.card-buttons{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.copy-btn{
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--text);
+  padding:10px 14px;
+  border-radius:8px;
+  font-size:.82rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:all .15s;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-family:inherit;
+}
+.copy-btn:hover{transform:translateX(2px)}
+.card.teal .copy-btn:hover{background:rgba(46,125,123,.15);border-color:var(--teal);color:var(--teal-light)}
+.card.coral .copy-btn:hover{background:rgba(232,146,124,.15);border-color:var(--coral);color:var(--coral-light)}
+.card.lavanda .copy-btn:hover{background:rgba(155,142,196,.15);border-color:var(--lavanda);color:var(--lavanda-light)}
+.copy-btn.copied{background:rgba(46,125,123,.25)!important;border-color:var(--teal)!important;color:var(--teal-light)!important}
+.footer{text-align:center;color:var(--muted);font-size:.75rem;margin-top:40px;padding-top:20px;border-top:1px solid var(--border)}
+.toast{
+  position:fixed;
+  bottom:24px;
+  left:50%;
+  transform:translateX(-50%) translateY(120%);
+  background:var(--teal);
+  color:#fff;
+  padding:12px 22px;
+  border-radius:10px;
+  font-size:.85rem;
+  font-weight:600;
+  box-shadow:0 8px 24px rgba(0,0,0,.4);
+  transition:transform .3s ease-out;
+  z-index:100;
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>🧠 Imagina-T — Recursos NotebookLM</h1>
+  <p class="subtitle">10 prompts listos para generar presentaciones y podcasts con NotebookLM, organizados por los 5 auditorios de Fundación Imagina-T A.C.</p>
+  <div class="header-links">
+    <a class="header-btn" href="https://imagintpend.netlify.app" target="_blank" rel="noopener">📋 Tareas Pendientes</a>
+    <a class="header-btn" href="https://imaginat-analisis-rev00.netlify.app" target="_blank" rel="noopener">📊 Análisis Base de Datos</a>
+  </div>
+</header>
+
+<div class="grid">
+
+  <div class="card teal">
+    <div class="card-emoji">🏦</div>
+    <div class="card-title">Inversionistas y Donadores</div>
+    <div class="card-desc">Presentación ejecutiva con datos, ROI social y estrategia de fondeo $12M MXN. Tono formal, orientado a inversión de impacto.</div>
+    <div class="card-buttons">
+      <button class="copy-btn" data-prompt="p1a">📊 Prompt Presentación</button>
+      <button class="copy-btn" data-prompt="p1b">🎙️ Prompt Podcast</button>
+    </div>
+  </div>
+
+  <div class="card coral">
+    <div class="card-emoji">👨‍👩‍👧</div>
+    <div class="card-title">Familias</div>
+    <div class="card-desc">Padres y madres de niños 0-8 años. Tono cálido y empático, sin términos médicos. Objetivo: descarga de app.</div>
+    <div class="card-buttons">
+      <button class="copy-btn" data-prompt="p2a">📊 Prompt Presentación</button>
+      <button class="copy-btn" data-prompt="p2b">🎙️ Prompt Podcast</button>
+    </div>
+  </div>
+
+  <div class="card lavanda">
+    <div class="card-emoji">🔬</div>
+    <div class="card-title">Profesionales Clínicos</div>
+    <div class="card-desc">Psicólogos, pediatras, terapeutas e investigadores. Enfoque académico sobre el Modelo de 3 Capas y validación científica.</div>
+    <div class="card-buttons">
+      <button class="copy-btn" data-prompt="p3a">📊 Prompt Presentación</button>
+      <button class="copy-btn" data-prompt="p3b">🎙️ Prompt Podcast</button>
+    </div>
+  </div>
+
+  <div class="card teal">
+    <div class="card-emoji">🇺🇸</div>
+    <div class="card-title">US / English Audience</div>
+    <div class="card-desc">San Diego foundations, Latino community orgs, California health investors. Bilingual, culturally sensitive, border-region focus.</div>
+    <div class="card-buttons">
+      <button class="copy-btn" data-prompt="p4a">📊 Prompt Presentation</button>
+      <button class="copy-btn" data-prompt="p4b">🎙️ Prompt Podcast</button>
+    </div>
+  </div>
+
+  <div class="card coral">
+    <div class="card-emoji">🏫</div>
+    <div class="card-title">Instituciones</div>
+    <div class="card-desc">DIF, IMSS, escuelas de educación especial, UABC. Propuesta de licenciamiento institucional con foco en cumplimiento normativo.</div>
+    <div class="card-buttons">
+      <button class="copy-btn" data-prompt="p5a">📊 Prompt Presentación</button>
+      <button class="copy-btn" data-prompt="p5b">🎙️ Prompt Podcast</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Fundación Imagina-T A.C. · RFC FIM2504161H5 · Tijuana, BC<br>
+  Prompts generados 2026-04-13 · Dashboard JLV
+</div>
+
+</div>
+
+<div class="toast" id="toast">✓ Prompt copiado al portapapeles</div>
+
+<script type="text/plain" id="p1a">Basándote en los documentos cargados, crea una presentación ejecutiva de 10 slides para inversionistas y donadores de Fundación Imagina-T A.C. Incluye:
+- Slide 1: El problema (19.34% niños México con retrasos, 7% acceso a estimulación temprana)
+- Slide 2: La solución (plataforma AI 3 capas)
+- Slide 3: Validación clínica (Mesa de Especialistas TJ-SD)
+- Slide 4: Modelo de impacto social medible
+- Slide 5: Estructura legal (RFC: FIM2504161H5, A.C.)
+- Slide 6: Roadmap tecnológico (Fase 1 Zorbek $34,800 USD)
+- Slide 7: Estrategia de fondeo ($12M MXN multi-fuente)
+- Slide 8: Alineación ODS ONU (Metas 3 y 4)
+- Slide 9: Expansión LATAM 2030
+- Slide 10: Call to action con datos de contacto
+Tono: formal, basado en datos, orientado a ROI social.
+Idioma: español con términos financieros en inglés.
+TÍTULO de la presentación: "Imagina-T — Para Inversionistas y Donadores"
+NOMBRE del archivo al guardar: IMAGINAT_INVERSIONISTAS_130426
+No incluyas números de revisión, versiones ni fechas internas en el título visible.</script>
+
+<script type="text/plain" id="p1b">Crea un guión de podcast de 8 minutos con DOS avatares:
+Avatar 1 Ana — analista de impacto social
+Avatar 2 Carlos — especialista en inversión de impacto
+Tema: Por qué Imagina-T representa la mejor oportunidad de inversión social en el corredor Tijuana-San Diego 2026.
+Estructura:
+- Min 0-1: El problema invisible de salud infantil en México
+- Min 1-3: Cómo Imagina-T lo resuelve con tecnología
+- Min 3-5: Validación científica y tracción real
+- Min 5-7: El modelo financiero y retorno social
+- Min 7-8: Cómo participar como donador o inversionista
+Tono: profesional pero accesible. Sin jerga técnica excesiva.
+TÍTULO del podcast: "Imagina-T — Para Inversionistas y Donadores"
+NOMBRE del archivo al guardar: IMAGINAT_INVERSIONISTAS_PODCAST_130426
+No incluyas números de revisión, versiones ni fechas internas en el título visible.</script>
+
+<script type="text/plain" id="p2a">Crea una presentación visual de 8 slides dirigida a padres y madres de niños de 0-8 años en México, especialmente en Tijuana y zonas urbanas. El objetivo es que descarguen la app de Imagina-T. Incluye:
+- Slide 1: ¿Tu hijo tiene entre 0 y 8 años? (gancho emocional)
+- Slide 2: Señales tempranas que los papás no deben ignorar
+- Slide 3: Qué hace Imagina-T en términos simples
+- Slide 4: Cómo funciona la app (3 pasos máximo)
+- Slide 5: Es gratis para empezar (modelo freemium)
+- Slide 6: Respaldada por especialistas reales en TJ-SD
+- Slide 7: Testimonios del focus group UABC
+- Slide 8: Descárgala ahora (App Store / Google Play)
+Tono: cálido, empático, esperanzador. Sin términos médicos.
+Colores: paleta pastel suave (recomendación especialistas).
+TÍTULO de la presentación: "Imagina-T — Para Familias"
+NOMBRE del archivo al guardar: IMAGINAT_FAMILIAS_130426
+No incluyas números de revisión, versiones ni fechas internas en el título visible.</script>
+
+<script type="text/plain" id="p2b">Crea un guión de podcast de 6 minutos con DOS avatares:
+Avatar 1 Sofía — mamá de niño con retraso del desarrollo
+Avatar 2 Dr. Ramírez — pediatra de Tijuana
+Tema: Cómo Imagina-T ayudó a Sofía a entender mejor el desarrollo de su hijo desde casa.
+Estructura conversacional, emotiva y esperanzadora:
+- Min 0-1: Sofía describe su preocupación inicial
+- Min 1-2: Lo que el doctor normalmente no puede explicar en 15 minutos de consulta
+- Min 2-4: Cómo Imagina-T llenó ese vacío
+- Min 4-5: Resultados concretos que Sofía observó
+- Min 5-6: Invitación a otras mamás a descargarlo
+Idioma: español mexicano, tono de conversación real.
+TÍTULO del podcast: "Imagina-T — Para Familias"
+NOMBRE del archivo al guardar: IMAGINAT_FAMILIAS_PODCAST_130426
+No incluyas números de revisión, versiones ni fechas internas en el título visible.</script>
+
+<script type="text/plain" id="p3a">Crea una presentación técnica de 12 slides para psicólogos, pediatras, terapeutas ocupacionales e investigadores.
+Enfoque: validación científica del Modelo de 3 Capas de Imagina-T y su aplicabilidad clínica.
+- Slide 1: El gap entre detección temprana y acceso a atención
+- Slide 2: Arquitectura del algoritmo (3 capas explicadas)
+- Slide 3: Metodología de validación con especialistas
+- Slide 4: Mesa de Especialistas TJ-SD (perfiles y credenciales)
+- Slide 5: Resultados del Focus Group UABC Campus Otay
+- Slide 6: Comparativa con herramientas existentes (M-CHAT, etc.)
+- Slide 7: Flujo de uso clínico (cómo complementa al especialista)
+- Slide 8: Privacidad de datos y cumplimiento normativo México
+- Slide 9: Oportunidades de investigación y publicación
+- Slide 10: Modelo de colaboración institucional
+- Slide 11: Roadmap de mejora continua con retroalimentación clínica
+- Slide 12: Invitación a unirse a la Mesa de Especialistas
+Tono: académico, basado en evidencia, riguroso.
+TÍTULO de la presentación: "Imagina-T — Para Profesionales Clínicos"
+NOMBRE del archivo al guardar: IMAGINAT_CLINICOS_130426
+No incluyas números de revisión, versiones ni fechas internas en el título visible.</script>
+
+<script type="text/plain" id="p3b">Crea un guión de podcast académico de 10 minutos con DOS avatares especialistas:
+Avatar 1 Dra. González — neuropsicóloga infantil
+Avatar 2 Dr. Martínez — investigador en desarrollo infantil
+Tema: Análisis crítico del modelo algorítmico de Imagina-T y su potencial para detección temprana a escala.
+Estructura:
+- Min 0-2: Limitaciones actuales de los instrumentos de tamizaje tradicionales
+- Min 2-4: Cómo el modelo de 3 capas aborda esas limitaciones
+- Min 4-6: Discusión sobre el focus group UABC y hallazgos
+- Min 6-8: Consideraciones éticas y de privacidad
+- Min 8-10: Oportunidades de investigación colaborativa
+Tono: debate académico constructivo, con preguntas y respuestas.
+TÍTULO del podcast: "Imagina-T — Para Profesionales Clínicos"
+NOMBRE del archivo al guardar: IMAGINAT_CLINICOS_PODCAST_130426
+No incluyas números de revisión, versiones ni fechas internas en el título visible.</script>
+
+<script type="text/plain" id="p4a">Create a 10-slide pitch deck in English for US-based audience: San Diego foundations, Latino community organizations, and California health investors.
+Focus: Imagina-T as the bridge solution for underserved Latino children in the US-Mexico border region.
+- Slide 1: 1 in 6 children in the US has a developmental disability — Latino children are least likely to be diagnosed
+- Slide 2: The Tijuana-San Diego corridor opportunity
+- Slide 3: What Imagina-T does (plain English, no jargon)
+- Slide 4: Clinical validation by TJ-SD specialists
+- Slide 5: Legal structure (Mexican A.C. + US expansion roadmap)
+- Slide 6: Freemium model + institutional licensing
+- Slide 7: Impact metrics and scalability
+- Slide 8: Alignment with CDC early intervention guidelines
+- Slide 9: Partnership opportunities for San Diego organizations
+- Slide 10: Call to action
+Tone: professional, data-driven, culturally sensitive.
+TITLE of the presentation: "Imagina-T — For US Audience"
+FILE NAME when saving: IMAGINAT_US_130426
+Do not include revision numbers, versions or internal dates in the visible title.</script>
+
+<script type="text/plain" id="p4b">Create an 8-minute bilingual podcast script with TWO avatars:
+Avatar 1 Maria — Mexican-American mother from Chula Vista
+Avatar 2 Dr. Johnson — San Diego developmental pediatrician
+Topic: How Imagina-T is breaking barriers for Latino families in the border region who lack access to early intervention.
+Structure:
+- Min 0-1: Maria's story finding Imagina-T
+- Min 1-3: Dr. Johnson explains the clinical gap it fills
+- Min 3-5: How it works across the border context
+- Min 5-7: What US organizations can do to support it
+- Min 7-8: How to get involved or download the app
+Tone: warm, inclusive, hopeful. Mix of English and natural Spanglish where appropriate.
+TITLE of the podcast: "Imagina-T — For US Audience"
+FILE NAME when saving: IMAGINAT_US_PODCAST_130426
+Do not include revision numbers, versions or internal dates in the visible title.</script>
+
+<script type="text/plain" id="p5a">Crea una propuesta institucional de 12 slides dirigida a:
+DIF Municipal/Estatal, IMSS, escuelas de educación especial, UABC, universidades con programas de psicología y pedagogía.
+Objetivo: adopción institucional de Imagina-T como herramienta de tamizaje y seguimiento.
+- Slide 1: El costo institucional de la detección tardía
+- Slide 2: Qué es Imagina-T (enfoque institucional)
+- Slide 3: Cómo se integra al flujo de trabajo existente
+- Slide 4: Modelo de licenciamiento institucional
+- Slide 5: Capacitación del personal (protocolo de onboarding)
+- Slide 6: Datos de privacidad y cumplimiento NOM/COFEPRIS
+- Slide 7: Resultados del piloto UABC Campus Otay
+- Slide 8: ROI institucional (ahorro en derivaciones tardías)
+- Slide 9: Casos de uso por tipo de institución
+- Slide 10: Soporte técnico y actualizaciones
+- Slide 11: Proceso de implementación (30-60-90 días)
+- Slide 12: Siguiente paso: reunión de demostración
+Tono: formal, orientado a procesos, con foco en facilidad de implementación y cumplimiento normativo.
+TÍTULO de la presentación: "Imagina-T — Para Instituciones"
+NOMBRE del archivo al guardar: IMAGINAT_INSTITUCIONES_130426
+No incluyas números de revisión, versiones ni fechas internas en el título visible.</script>
+
+<script type="text/plain" id="p5b">Crea un guión de podcast institucional de 8 minutos con DOS avatares:
+Avatar 1 Lic. Herrera — director de una escuela de educación especial en Tijuana
+Avatar 2 Ing. Torres — coordinador de tecnología del DIF BC
+Tema: Cómo Imagina-T se integró al protocolo de detección temprana de su institución.
+Estructura:
+- Min 0-1: El problema que tenían antes de Imagina-T
+- Min 1-3: El proceso de evaluación y decisión institucional
+- Min 3-5: Implementación y capacitación del equipo
+- Min 5-7: Resultados medibles a los 90 días
+- Min 7-8: Recomendación a otras instituciones
+Tono: testimonial, práctico, orientado a resultados.
+Lenguaje: formal pero accesible para tomadores de decisión.
+TÍTULO del podcast: "Imagina-T — Para Instituciones"
+NOMBRE del archivo al guardar: IMAGINAT_INSTITUCIONES_PODCAST_130426
+No incluyas números de revisión, versiones ni fechas internas en el título visible.</script>
+
+<script>
+const toast = document.getElementById('toast');
+let toastTimer = null;
+
+function showToast(msg){
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const id = btn.dataset.prompt;
+    const node = document.getElementById(id);
+    if(!node){ showToast('✗ Prompt no encontrado'); return; }
+    const text = node.textContent.trim();
+    try {
+      await navigator.clipboard.writeText(text);
+      const originalText = btn.textContent;
+      btn.textContent = '✓ Copiado';
+      btn.classList.add('copied');
+      showToast('✓ Prompt copiado al portapapeles');
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.classList.remove('copied');
+      }, 1800);
+    } catch(err) {
+      showToast('✗ Error al copiar');
+    }
+  });
+});
+</script>
+
+</body>
+</html>

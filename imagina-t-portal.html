@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#080c10">
+<title>Imagina-T — Portal de Recursos | Fundadores</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#080c10;
+  --bg-2:#0d1318;
+  --teal:#2E7D7B;
+  --teal-light:#4FA9A7;
+  --teal-soft:#6BC4C2;
+  --coral:#E8927C;
+  --coral-soft:#F2B3A1;
+  --lavanda:#9B8EC4;
+  --lavanda-light:#b6a9d9;
+  --white:#F0F4F8;
+  --muted:rgba(240,244,248,.58);
+  --muted-2:rgba(240,244,248,.42);
+  --line:rgba(240,244,248,.08);
+}
+html,body{background:var(--bg);color:var(--white);font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;min-height:100%}
+body{
+  background:
+    radial-gradient(1200px 640px at 50% -8%,rgba(46,125,123,.20),transparent 60%),
+    radial-gradient(900px 520px at 85% 18%,rgba(232,146,124,.11),transparent 60%),
+    radial-gradient(800px 520px at 12% 32%,rgba(155,142,196,.09),transparent 60%),
+    var(--bg);
+  padding:0 20px 70px;
+  overflow-x:hidden;
+  line-height:1.55;
+  min-height:100vh;
+}
+
+/* ========= Decorative geometric grid in background ========= */
+body::before{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(var(--line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 70% 55% at 50% 30%,#000 15%,transparent 80%);
+  -webkit-mask-image:radial-gradient(ellipse 70% 55% at 50% 30%,#000 15%,transparent 80%);
+  opacity:.35;
+}
+
+.container{max-width:1120px;margin:0 auto;position:relative;z-index:1}
+
+/* ================================================================
+   HERO
+   ================================================================ */
+.hero{
+  position:relative;
+  padding:84px 12px 60px;
+  text-align:center;
+  overflow:hidden;
+  animation:fadeUp .9s cubic-bezier(.22,.61,.36,1) both;
+}
+
+/* CSS-only floating particles */
+.hero-particles{position:absolute;inset:0;pointer-events:none;z-index:0}
+.hero-particles span{
+  position:absolute;bottom:-20px;
+  width:6px;height:6px;border-radius:50%;
+  background:var(--teal-light);
+  opacity:.4;
+  filter:blur(.5px);
+  animation:floatUp 16s linear infinite;
+}
+.hero-particles span:nth-child(1){left:7%;animation-delay:0s}
+.hero-particles span:nth-child(2){left:18%;animation-delay:-3s;background:var(--coral);width:4px;height:4px}
+.hero-particles span:nth-child(3){left:29%;animation-delay:-6s;background:var(--lavanda)}
+.hero-particles span:nth-child(4){left:43%;animation-delay:-1.5s;background:var(--teal-soft);width:8px;height:8px}
+.hero-particles span:nth-child(5){left:55%;animation-delay:-8s;background:var(--coral-soft);width:5px;height:5px}
+.hero-particles span:nth-child(6){left:68%;animation-delay:-4.5s;background:var(--lavanda);width:4px;height:4px}
+.hero-particles span:nth-child(7){left:80%;animation-delay:-10s;background:var(--teal-light)}
+.hero-particles span:nth-child(8){left:92%;animation-delay:-2.5s;background:var(--coral);width:5px;height:5px}
+@keyframes floatUp{
+  0%{transform:translateY(0) scale(.6);opacity:0}
+  10%{opacity:.5}
+  85%{opacity:.4}
+  100%{transform:translateY(-110vh) scale(1.1);opacity:0}
+}
+
+.logo{
+  position:relative;z-index:1;
+  display:inline-block;
+  font-family:'DM Serif Display',Georgia,serif;
+  font-size:clamp(3.2rem,11vw,5.8rem);
+  font-weight:400;
+  letter-spacing:-.025em;
+  line-height:1;
+  color:var(--white);
+  text-shadow:0 6px 40px rgba(46,125,123,.18);
+}
+.logo .dot{
+  color:var(--coral);
+  display:inline-block;
+  text-shadow:0 0 24px rgba(232,146,124,.55);
+}
+
+.hero-sub{
+  position:relative;z-index:1;
+  margin-top:16px;
+  font-size:clamp(.78rem,2.8vw,.98rem);
+  letter-spacing:.26em;
+  text-transform:uppercase;
+  color:var(--muted);
+  font-weight:500;
+}
+
+.hero-line{
+  position:relative;z-index:1;
+  width:90px;height:2px;margin:26px auto 32px;
+  background:linear-gradient(90deg,transparent,var(--teal-light),transparent);
+}
+.hero-line::after{
+  content:"";position:absolute;inset:-4px 0;
+  background:linear-gradient(90deg,transparent,var(--teal-light),transparent);
+  filter:blur(8px);opacity:.7;
+}
+
+.hero-actions{
+  position:relative;z-index:1;
+  display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
+  margin-top:6px;
+}
+.btn-hero{
+  position:relative;
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-width:240px;
+  padding:16px 28px;
+  border-radius:13px;
+  border:1px solid rgba(79,169,167,.42);
+  background:linear-gradient(135deg,rgba(46,125,123,.22),rgba(46,125,123,.05));
+  color:var(--white);
+  font-family:inherit;font-size:.95rem;font-weight:600;letter-spacing:.015em;
+  text-decoration:none;
+  transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;
+  overflow:hidden;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:0 10px 34px rgba(46,125,123,.2),inset 0 1px 0 rgba(255,255,255,.07);
+}
+.btn-hero::before{
+  content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;
+  background:linear-gradient(100deg,transparent 20%,rgba(240,244,248,.28) 50%,transparent 80%);
+  transform:skewX(-18deg);
+  animation:shimmer 3.6s ease-in-out infinite;
+}
+@keyframes shimmer{
+  0%{left:-120%}
+  60%{left:140%}
+  100%{left:140%}
+}
+.btn-hero:hover{
+  transform:translateY(-2px);
+  border-color:var(--teal-light);
+  box-shadow:0 16px 44px rgba(46,125,123,.38),inset 0 1px 0 rgba(255,255,255,.1);
+}
+.btn-hero.coral{
+  border-color:rgba(232,146,124,.42);
+  background:linear-gradient(135deg,rgba(232,146,124,.22),rgba(232,146,124,.05));
+  box-shadow:0 10px 34px rgba(232,146,124,.2),inset 0 1px 0 rgba(255,255,255,.07);
+}
+.btn-hero.coral:hover{
+  border-color:var(--coral);
+  box-shadow:0 16px 44px rgba(232,146,124,.38),inset 0 1px 0 rgba(255,255,255,.1);
+}
+.btn-hero .ico{font-size:1.05rem;line-height:1}
+
+/* ================================================================
+   SECTION HEADER (shared)
+   ================================================================ */
+.section{margin:76px auto 0;animation:fadeUp 1.1s cubic-bezier(.22,.61,.36,1) both}
+.section-title-wrap{display:flex;align-items:center;gap:20px;margin-bottom:28px;padding:0 4px}
+.section-title{
+  font-family:'DM Serif Display',Georgia,serif;
+  font-size:clamp(1.55rem,4.4vw,2.05rem);
+  font-weight:400;
+  color:var(--white);
+  letter-spacing:-.015em;
+  white-space:nowrap;
+}
+.section-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(46,125,123,.7),transparent)}
+
+/* ================================================================
+   PLAN DE NEGOCIOS
+   ================================================================ */
+.plan-card{
+  position:relative;
+  padding:40px 34px;
+  border-radius:22px;
+  background:
+    radial-gradient(700px 240px at 85% 0%,rgba(46,125,123,.22),transparent 70%),
+    linear-gradient(135deg,rgba(46,125,123,.14),rgba(46,125,123,.03));
+  border:1px solid rgba(46,125,123,.28);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:
+    0 24px 70px rgba(0,0,0,.4),
+    0 0 0 1px rgba(255,255,255,.02) inset,
+    0 1px 0 rgba(255,255,255,.06) inset;
+  overflow:hidden;
+  transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease;
+}
+.plan-card:hover{
+  transform:translateY(-3px);
+  border-color:rgba(79,169,167,.55);
+  box-shadow:
+    0 32px 80px rgba(46,125,123,.34),
+    0 0 0 1px rgba(79,169,167,.12) inset,
+    0 1px 0 rgba(255,255,255,.09) inset;
+}
+.plan-eyebrow{
+  display:inline-block;
+  font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--teal-soft);font-weight:600;
+  margin-bottom:10px;
+}
+.plan-title{
+  font-family:'DM Serif Display',Georgia,serif;
+  font-size:clamp(1.75rem,5vw,2.35rem);
+  font-weight:400;line-height:1.1;
+  margin-bottom:12px;letter-spacing:-.015em;
+}
+.plan-desc{
+  color:var(--muted);
+  font-size:1rem;
+  margin-bottom:28px;
+  max-width:560px;
+}
+.plan-btn{
+  position:relative;
+  display:inline-flex;align-items:center;gap:12px;
+  padding:15px 28px;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--teal),var(--teal-light));
+  color:var(--white);
+  font-family:inherit;font-size:.95rem;font-weight:600;letter-spacing:.01em;
+  text-decoration:none;
+  box-shadow:
+    0 14px 36px rgba(46,125,123,.38),
+    inset 0 1px 0 rgba(255,255,255,.22);
+  transition:transform .3s ease,box-shadow .3s ease;
+  overflow:hidden;
+}
+.plan-btn::before{
+  content:"";position:absolute;top:0;left:-120%;width:55%;height:100%;
+  background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.32) 50%,transparent 80%);
+  transform:skewX(-18deg);
+  animation:shimmer 3.2s ease-in-out infinite;
+}
+.plan-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    0 18px 46px rgba(46,125,123,.55),
+    inset 0 1px 0 rgba(255,255,255,.3);
+}
+.plan-btn .ico{font-size:1.1rem;line-height:1}
+
+/* ================================================================
+   AUDIENCE GRID
+   ================================================================ */
+.grid{display:grid;grid-template-columns:1fr;gap:22px}
+@media(min-width:760px){.grid{grid-template-columns:1fr 1fr}}
+
+.audience-card{
+  position:relative;
+  padding:32px 28px 28px;
+  border-radius:20px;
+  background:linear-gradient(155deg,rgba(240,244,248,.045),rgba(240,244,248,.015));
+  border:1px solid rgba(240,244,248,.08);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:
+    0 18px 46px rgba(0,0,0,.35),
+    inset 0 1px 0 rgba(255,255,255,.04);
+  transition:transform .4s ease,box-shadow .4s ease,border-color .4s ease;
+  display:flex;flex-direction:column;gap:14px;
+  overflow:hidden;
+  animation:fadeUp .85s cubic-bezier(.22,.61,.36,1) both;
+}
+
+/* gradient border (shown on hover) via double-mask trick */
+.audience-card::before{
+  content:"";
+  position:absolute;inset:0;
+  border-radius:inherit;
+  padding:1.5px;
+  background:linear-gradient(135deg,var(--teal-light),var(--coral));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  opacity:0;
+  transition:opacity .4s ease;
+  pointer-events:none;
+}
+.audience-card:hover{transform:translateY(-5px)}
+.audience-card:hover::before{opacity:1}
+
+/* subtle radial glow in corner, per variant */
+.audience-card::after{
+  content:"";position:absolute;top:0;right:0;width:60%;height:60%;
+  background:radial-gradient(circle at top right,currentColor,transparent 65%);
+  opacity:.08;pointer-events:none;
+  transition:opacity .4s ease;
+}
+.audience-card:hover::after{opacity:.16}
+
+/* ============ Variant: teal ============ */
+.audience-card.teal{color:var(--teal-light)}
+.audience-card.teal::before{background:linear-gradient(135deg,var(--teal-light),var(--coral))}
+.audience-card.teal:hover{box-shadow:0 24px 60px rgba(46,125,123,.38),inset 0 1px 0 rgba(255,255,255,.06)}
+.audience-card.teal .audience-icon{filter:drop-shadow(0 6px 20px rgba(46,125,123,.5))}
+.audience-card.teal .audience-btn:hover{background:rgba(46,125,123,.18);border-color:var(--teal-light);color:var(--teal-soft)}
+
+/* ============ Variant: coral ============ */
+.audience-card.coral{color:var(--coral)}
+.audience-card.coral::before{background:linear-gradient(135deg,var(--coral),var(--lavanda))}
+.audience-card.coral:hover{box-shadow:0 24px 60px rgba(232,146,124,.32),inset 0 1px 0 rgba(255,255,255,.06)}
+.audience-card.coral .audience-icon{filter:drop-shadow(0 6px 20px rgba(232,146,124,.5))}
+.audience-card.coral .audience-btn:hover{background:rgba(232,146,124,.18);border-color:var(--coral);color:var(--coral-soft)}
+
+/* ============ Variant: lavanda ============ */
+.audience-card.lavanda{color:var(--lavanda)}
+.audience-card.lavanda::before{background:linear-gradient(135deg,var(--lavanda),var(--teal-light))}
+.audience-card.lavanda:hover{box-shadow:0 24px 60px rgba(155,142,196,.32),inset 0 1px 0 rgba(255,255,255,.06)}
+.audience-card.lavanda .audience-icon{filter:drop-shadow(0 6px 20px rgba(155,142,196,.5))}
+.audience-card.lavanda .audience-btn:hover{background:rgba(155,142,196,.2);border-color:var(--lavanda);color:var(--lavanda-light)}
+
+/* ============ Variant: teal-light (US/English) ============ */
+.audience-card.teal-light{color:var(--teal-soft)}
+.audience-card.teal-light::before{background:linear-gradient(135deg,var(--teal-soft),var(--teal-light))}
+.audience-card.teal-light:hover{box-shadow:0 24px 60px rgba(107,196,194,.3),inset 0 1px 0 rgba(255,255,255,.06)}
+.audience-card.teal-light .audience-icon{filter:drop-shadow(0 6px 20px rgba(107,196,194,.5))}
+.audience-card.teal-light .audience-btn:hover{background:rgba(107,196,194,.18);border-color:var(--teal-soft);color:var(--teal-soft)}
+
+/* ============ Variant: coral-soft (Instituciones) ============ */
+.audience-card.coral-soft{color:var(--coral-soft)}
+.audience-card.coral-soft::before{background:linear-gradient(135deg,var(--coral-soft),var(--coral))}
+.audience-card.coral-soft:hover{box-shadow:0 24px 60px rgba(242,179,161,.3),inset 0 1px 0 rgba(255,255,255,.06)}
+.audience-card.coral-soft .audience-icon{filter:drop-shadow(0 6px 20px rgba(242,179,161,.5))}
+.audience-card.coral-soft .audience-btn:hover{background:rgba(242,179,161,.18);border-color:var(--coral-soft);color:var(--coral-soft)}
+
+.audience-icon{
+  font-size:2.9rem;line-height:1;
+  position:relative;z-index:1;
+}
+.audience-title{
+  font-family:'DM Serif Display',Georgia,serif;
+  font-size:1.55rem;font-weight:400;
+  color:var(--white);letter-spacing:-.01em;
+  position:relative;z-index:1;line-height:1.2;
+}
+.audience-sub{
+  color:var(--muted);font-size:.9rem;
+  margin-top:-4px;position:relative;z-index:1;
+  max-width:360px;
+}
+.audience-btn{
+  margin-top:auto;align-self:flex-start;
+  display:inline-flex;align-items:center;gap:10px;
+  padding:12px 20px;
+  border-radius:11px;
+  border:1px solid rgba(240,244,248,.14);
+  background:rgba(240,244,248,.035);
+  color:var(--white);
+  font-family:inherit;font-size:.88rem;font-weight:600;letter-spacing:.01em;
+  text-decoration:none;
+  transition:all .3s ease;
+  position:relative;z-index:1;
+}
+.audience-btn .arrow{transition:transform .3s ease}
+.audience-btn:hover .arrow{transform:translateX(4px)}
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+footer{
+  margin-top:96px;
+  text-align:center;
+  padding:34px 16px 12px;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+  font-size:.82rem;letter-spacing:.04em;
+  animation:fadeUp 1.2s cubic-bezier(.22,.61,.36,1) both;
+  animation-delay:.4s;
+}
+footer strong{color:var(--white);font-weight:600;letter-spacing:.02em}
+.foot-sep{margin:0 10px;opacity:.45}
+.foot-row{margin-bottom:8px}
+.foot-row:last-child{color:var(--muted-2);font-size:.76rem}
+
+/* ================================================================
+   ANIMATIONS & STAGGER
+   ================================================================ */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(26px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.section:nth-of-type(1){animation-delay:.08s}
+.section:nth-of-type(2){animation-delay:.18s}
+.audience-card:nth-child(1){animation-delay:.28s}
+.audience-card:nth-child(2){animation-delay:.36s}
+.audience-card:nth-child(3){animation-delay:.44s}
+.audience-card:nth-child(4){animation-delay:.52s}
+.audience-card:nth-child(5){animation-delay:.60s}
+
+/* ================================================================
+   MOBILE (Samsung Note 10+ ~412px)
+   ================================================================ */
+@media(max-width:520px){
+  body{padding:0 14px 50px}
+  .hero{padding:64px 4px 44px}
+  .hero-actions{flex-direction:column;align-items:stretch;gap:12px}
+  .btn-hero{min-width:0;width:100%;padding:15px 20px;font-size:.92rem}
+  .section{margin-top:60px}
+  .section-title-wrap{gap:14px;margin-bottom:22px}
+  .section-title{font-size:1.5rem}
+  .plan-card{padding:30px 24px;border-radius:18px}
+  .plan-desc{font-size:.95rem;margin-bottom:22px}
+  .plan-btn{width:100%;justify-content:center;padding:14px 22px}
+  .audience-card{padding:28px 24px 24px;border-radius:18px}
+  .audience-icon{font-size:2.6rem}
+  .audience-title{font-size:1.4rem}
+  .audience-btn{width:100%;justify-content:center}
+  footer{margin-top:72px}
+  .foot-sep{display:none}
+  .foot-row{display:block}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .hero-particles{display:none}
+}
+</style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- ============ HERO ============ -->
+    <header class="hero">
+      <div class="hero-particles" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <h1 class="logo">Imagina-T<span class="dot">.</span></h1>
+      <div class="hero-sub">Portal de Recursos &mdash; Fundadores</div>
+      <div class="hero-line" aria-hidden="true"></div>
+      <div class="hero-actions">
+        <a class="btn-hero" href="https://imagintpend.netlify.app" target="_blank" rel="noopener">
+          <span class="ico">📋</span><span>Tareas Pendientes</span>
+        </a>
+        <a class="btn-hero coral" href="https://imaginat-analisis-rev00.netlify.app" target="_blank" rel="noopener">
+          <span class="ico">📊</span><span>Análisis Base de Datos</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ============ PLAN DE NEGOCIOS ============ -->
+    <section class="section" aria-labelledby="plan-heading">
+      <div class="plan-card">
+        <span class="plan-eyebrow">Documento maestro</span>
+        <h2 id="plan-heading" class="plan-title">Plan de Negocios</h2>
+        <p class="plan-desc">Documento maestro &mdash; versión vigente.</p>
+        <a class="plan-btn"
+           href="https://raw.githubusercontent.com/teraxio/imagina-t/main/Plan%20de%20Negocios%20ImaginaT%20AC%20Rev21.docx"
+           download="Plan de Negocios ImaginaT AC Rev21.docx">
+          <span class="ico">📄</span><span>Abrir documento</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ PRESENTACIONES POR AUDITORIO ============ -->
+    <section class="section" aria-labelledby="aud-heading">
+      <div class="section-title-wrap">
+        <h2 id="aud-heading" class="section-title">Presentaciones por Auditorio</h2>
+        <div class="section-line" aria-hidden="true"></div>
+      </div>
+      <div class="grid">
+
+        <article class="audience-card teal">
+          <div class="audience-icon">🏦</div>
+          <h3 class="audience-title">Inversionistas y Donadores</h3>
+          <p class="audience-sub">Capital, impacto social y estructura financiera.</p>
+          <a class="audience-btn"
+             href="https://raw.githubusercontent.com/teraxio/imagina-t/main/Inversionistas%20y%20Donadores.pdf"
+             target="_blank" rel="noopener">
+            Ver presentación <span class="arrow">→</span>
+          </a>
+        </article>
+
+        <article class="audience-card coral">
+          <div class="audience-icon">👨‍👩‍👧</div>
+          <h3 class="audience-title">Familias</h3>
+          <p class="audience-sub">Acompañamiento y desarrollo infantil con IA.</p>
+          <a class="audience-btn"
+             href="https://raw.githubusercontent.com/teraxio/imagina-t/main/Familia.pdf"
+             target="_blank" rel="noopener">
+            Ver presentación <span class="arrow">→</span>
+          </a>
+        </article>
+
+        <article class="audience-card lavanda">
+          <div class="audience-icon">🔬</div>
+          <h3 class="audience-title">Profesionales Clínicos</h3>
+          <p class="audience-sub">Evidencia, metodología y aplicación clínica.</p>
+          <a class="audience-btn"
+             href="https://raw.githubusercontent.com/teraxio/imagina-t/main/Profesionales%20clinicos.pdf"
+             target="_blank" rel="noopener">
+            Ver presentación <span class="arrow">→</span>
+          </a>
+        </article>
+
+        <article class="audience-card teal-light">
+          <div class="audience-icon">🇺🇸</div>
+          <h3 class="audience-title">US / English Audience</h3>
+          <p class="audience-sub">Imagina-T's mission and impact for US partners.</p>
+          <a class="audience-btn"
+             href="https://raw.githubusercontent.com/teraxio/imagina-t/main/US%20English%20Audience.pdf"
+             target="_blank" rel="noopener">
+            View presentation <span class="arrow">→</span>
+          </a>
+        </article>
+
+        <article class="audience-card coral-soft">
+          <div class="audience-icon">🏫</div>
+          <h3 class="audience-title">Instituciones</h3>
+          <p class="audience-sub">Alcance institucional y alianzas estratégicas.</p>
+          <a class="audience-btn"
+             href="https://raw.githubusercontent.com/teraxio/imagina-t/main/Instituciones.pdf"
+             target="_blank" rel="noopener">
+            Ver presentación <span class="arrow">→</span>
+          </a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+      <div class="foot-row">
+        <strong>Fundación Imagina-T A.C.</strong>
+        <span class="foot-sep">|</span>
+        RFC: FIM2504161H5
+      </div>
+      <div class="foot-row">
+        Uso interno &mdash; Fundadores
+        <span class="foot-sep">·</span>
+        Actualizado abril 2026
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>

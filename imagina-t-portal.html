@@ -438,6 +438,131 @@ footer strong{color:var(--white);font-weight:600;letter-spacing:.02em}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   .hero-particles{display:none}
 }
+
+/* ================================================================
+   PDF MODAL (PDF.js lightbox)
+   ================================================================ */
+.pdf-modal{
+  position:fixed;inset:0;z-index:1000;
+  background:
+    radial-gradient(900px 500px at 50% 0%,rgba(46,125,123,.18),transparent 70%),
+    rgba(8,12,16,.97);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  display:none;
+  flex-direction:column;
+}
+.pdf-modal.open{display:flex;animation:pdfFade .28s cubic-bezier(.22,.61,.36,1) both}
+@keyframes pdfFade{from{opacity:0}to{opacity:1}}
+body.modal-open{overflow:hidden;touch-action:none}
+
+.pdf-modal-header{
+  flex-shrink:0;
+  display:flex;align-items:center;gap:14px;
+  padding:14px 22px;
+  background:linear-gradient(180deg,rgba(13,19,24,.95),rgba(13,19,24,.72));
+  border-bottom:1px solid var(--line);
+  box-shadow:0 12px 40px rgba(0,0,0,.35);
+}
+.pdf-modal-title{
+  flex:1;min-width:0;
+  font-family:'DM Serif Display',Georgia,serif;
+  font-size:1.08rem;font-weight:400;
+  color:var(--white);letter-spacing:-.01em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.pdf-modal-controls{
+  display:flex;align-items:center;gap:8px;
+  flex-shrink:0;
+}
+.pdf-nav,.pdf-close{
+  width:40px;height:40px;
+  border-radius:11px;
+  font-family:inherit;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .25s ease;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.pdf-nav{
+  border:1px solid rgba(79,169,167,.38);
+  background:linear-gradient(135deg,rgba(46,125,123,.22),rgba(46,125,123,.06));
+  color:var(--white);
+  font-size:1.35rem;line-height:1;
+  box-shadow:0 6px 18px rgba(46,125,123,.22),inset 0 1px 0 rgba(255,255,255,.06);
+}
+.pdf-nav:hover:not(:disabled){
+  transform:translateY(-1px);
+  border-color:var(--teal-light);
+  box-shadow:0 10px 26px rgba(46,125,123,.38),inset 0 1px 0 rgba(255,255,255,.1);
+}
+.pdf-nav:disabled{opacity:.3;cursor:not-allowed}
+.pdf-page-info{
+  font-size:.86rem;color:var(--muted);
+  min-width:58px;text-align:center;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:.02em;
+}
+.pdf-close{
+  border:1px solid rgba(232,146,124,.42);
+  background:linear-gradient(135deg,rgba(232,146,124,.22),rgba(232,146,124,.06));
+  color:var(--white);
+  font-size:1.05rem;
+  box-shadow:0 6px 18px rgba(232,146,124,.22),inset 0 1px 0 rgba(255,255,255,.06);
+  margin-left:6px;
+}
+.pdf-close:hover{
+  transform:rotate(90deg);
+  border-color:var(--coral);
+  box-shadow:0 10px 26px rgba(232,146,124,.38),inset 0 1px 0 rgba(255,255,255,.1);
+}
+
+.pdf-modal-body{
+  flex:1;min-height:0;
+  position:relative;
+  overflow:auto;
+  display:flex;align-items:flex-start;justify-content:center;
+  padding:24px;
+  -webkit-overflow-scrolling:touch;
+}
+#pdfCanvas{
+  display:block;
+  max-width:100%;
+  height:auto;
+  background:#fff;
+  border-radius:6px;
+  box-shadow:
+    0 32px 90px rgba(0,0,0,.65),
+    0 0 0 1px rgba(255,255,255,.04);
+}
+.pdf-loader{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);
+  font-size:.88rem;letter-spacing:.05em;
+  pointer-events:none;
+  background:transparent;
+}
+.pdf-loader.hidden{display:none}
+.pdf-loader::before{
+  content:"";
+  width:26px;height:26px;
+  border-radius:50%;
+  border:2px solid rgba(79,169,167,.22);
+  border-top-color:var(--teal-light);
+  animation:pdfSpin .9s linear infinite;
+  margin-right:14px;
+}
+@keyframes pdfSpin{to{transform:rotate(360deg)}}
+
+@media(max-width:520px){
+  .pdf-modal-header{padding:10px 12px;gap:8px}
+  .pdf-modal-title{font-size:.92rem}
+  .pdf-nav,.pdf-close{width:36px;height:36px;border-radius:10px}
+  .pdf-nav{font-size:1.2rem}
+  .pdf-close{font-size:.95rem;margin-left:4px}
+  .pdf-page-info{font-size:.78rem;min-width:46px}
+  .pdf-modal-body{padding:12px}
+}
 </style>
 </head>
 <body>
@@ -470,7 +595,9 @@ footer strong{color:var(--white);font-weight:600;letter-spacing:.02em}
         <p class="plan-desc">Documento maestro &mdash; versión vigente.</p>
         <a class="plan-btn"
            href="./docs/Plan%20de%20Negocios%20ImaginaT%20AC.pdf"
-           target="_blank" rel="noopener">
+           target="_blank" rel="noopener"
+           data-pdf-modal
+           data-pdf-title="Plan de Negocios — Imagina-T A.C.">
           <span class="ico">📄</span><span>Abrir documento</span>
         </a>
       </div>
@@ -490,7 +617,9 @@ footer strong{color:var(--white);font-weight:600;letter-spacing:.02em}
           <p class="audience-sub">Capital, impacto social y estructura financiera.</p>
           <a class="audience-btn"
              href="./docs/Inversionistas%20y%20Donadores.pdf"
-             target="_blank" rel="noopener">
+             target="_blank" rel="noopener"
+             data-pdf-modal
+             data-pdf-title="Inversionistas y Donadores">
             Ver presentación <span class="arrow">→</span>
           </a>
         </article>
@@ -501,7 +630,9 @@ footer strong{color:var(--white);font-weight:600;letter-spacing:.02em}
           <p class="audience-sub">Acompañamiento y desarrollo infantil con IA.</p>
           <a class="audience-btn"
              href="./docs/Familia.pdf"
-             target="_blank" rel="noopener">
+             target="_blank" rel="noopener"
+             data-pdf-modal
+             data-pdf-title="Familias">
             Ver presentación <span class="arrow">→</span>
           </a>
         </article>
@@ -512,7 +643,9 @@ footer strong{color:var(--white);font-weight:600;letter-spacing:.02em}
           <p class="audience-sub">Evidencia, metodología y aplicación clínica.</p>
           <a class="audience-btn"
              href="./docs/Profesionales%20clinicos.pdf"
-             target="_blank" rel="noopener">
+             target="_blank" rel="noopener"
+             data-pdf-modal
+             data-pdf-title="Profesionales Clínicos">
             Ver presentación <span class="arrow">→</span>
           </a>
         </article>
@@ -523,7 +656,9 @@ footer strong{color:var(--white);font-weight:600;letter-spacing:.02em}
           <p class="audience-sub">Imagina-T's mission and impact for US partners.</p>
           <a class="audience-btn"
              href="./docs/US%20English%20Audience.pdf"
-             target="_blank" rel="noopener">
+             target="_blank" rel="noopener"
+             data-pdf-modal
+             data-pdf-title="US / English Audience">
             View presentation <span class="arrow">→</span>
           </a>
         </article>
@@ -534,7 +669,9 @@ footer strong{color:var(--white);font-weight:600;letter-spacing:.02em}
           <p class="audience-sub">Alcance institucional y alianzas estratégicas.</p>
           <a class="audience-btn"
              href="./docs/Instituciones.pdf"
-             target="_blank" rel="noopener">
+             target="_blank" rel="noopener"
+             data-pdf-modal
+             data-pdf-title="Instituciones">
             Ver presentación <span class="arrow">→</span>
           </a>
         </article>
@@ -557,5 +694,164 @@ footer strong{color:var(--white);font-weight:600;letter-spacing:.02em}
     </footer>
 
   </div>
+
+  <!-- ============ PDF MODAL (PDF.js lightbox) ============ -->
+  <div id="pdfModal" class="pdf-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pdfModalTitle">
+    <div class="pdf-modal-header">
+      <div class="pdf-modal-title" id="pdfModalTitle">Documento</div>
+      <div class="pdf-modal-controls">
+        <button type="button" class="pdf-nav prev" aria-label="Página anterior">‹</button>
+        <span class="pdf-page-info" aria-live="polite">—</span>
+        <button type="button" class="pdf-nav next" aria-label="Página siguiente">›</button>
+      </div>
+      <button type="button" class="pdf-close" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="pdf-modal-body">
+      <canvas id="pdfCanvas"></canvas>
+      <div class="pdf-loader">Cargando documento</div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    const PDFJS_SRC='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+    const PDFJS_WORKER='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+    const modal=document.getElementById('pdfModal');
+    const canvas=document.getElementById('pdfCanvas');
+    const ctx=canvas.getContext('2d');
+    const titleEl=modal.querySelector('.pdf-modal-title');
+    const pageInfo=modal.querySelector('.pdf-page-info');
+    const prevBtn=modal.querySelector('.pdf-nav.prev');
+    const nextBtn=modal.querySelector('.pdf-nav.next');
+    const closeBtn=modal.querySelector('.pdf-close');
+    const bodyEl=modal.querySelector('.pdf-modal-body');
+    const loader=modal.querySelector('.pdf-loader');
+
+    let pdfDoc=null,currentPage=1,totalPages=1,rendering=false,pendingPage=null,pdfJsReady=null,lastFocus=null;
+
+    function loadPdfJs(){
+      if(pdfJsReady)return pdfJsReady;
+      pdfJsReady=new Promise((resolve,reject)=>{
+        if(window.pdfjsLib){resolve(window.pdfjsLib);return}
+        const s=document.createElement('script');
+        s.src=PDFJS_SRC;
+        s.onload=()=>{
+          if(!window.pdfjsLib){reject(new Error('pdfjsLib missing'));return}
+          window.pdfjsLib.GlobalWorkerOptions.workerSrc=PDFJS_WORKER;
+          resolve(window.pdfjsLib);
+        };
+        s.onerror=()=>reject(new Error('PDF.js load failed'));
+        document.head.appendChild(s);
+      });
+      return pdfJsReady;
+    }
+
+    function renderPage(num){
+      if(!pdfDoc)return;
+      rendering=true;
+      pdfDoc.getPage(num).then(page=>{
+        const padH=window.innerWidth<=520?24:48;
+        const padV=window.innerWidth<=520?24:48;
+        const maxW=Math.max(240,bodyEl.clientWidth-padH);
+        const maxH=Math.max(240,bodyEl.clientHeight-padV);
+        const base=page.getViewport({scale:1});
+        const fit=Math.min(maxW/base.width,maxH/base.height);
+        const dpr=Math.min(window.devicePixelRatio||1,2);
+        const viewport=page.getViewport({scale:fit*dpr});
+        canvas.width=viewport.width;
+        canvas.height=viewport.height;
+        canvas.style.width=(viewport.width/dpr)+'px';
+        canvas.style.height=(viewport.height/dpr)+'px';
+        return page.render({canvasContext:ctx,viewport}).promise;
+      }).then(()=>{
+        rendering=false;
+        loader.classList.add('hidden');
+        currentPage=num;
+        updateControls();
+        if(pendingPage!==null){
+          const p=pendingPage;pendingPage=null;renderPage(p);
+        }
+      }).catch(err=>{
+        rendering=false;
+        console.error('PDF render error',err);
+      });
+    }
+
+    function queuePage(num){
+      if(num<1||num>totalPages)return;
+      if(rendering){pendingPage=num;return}
+      renderPage(num);
+    }
+
+    function updateControls(){
+      pageInfo.textContent=currentPage+' / '+totalPages;
+      prevBtn.disabled=currentPage<=1;
+      nextBtn.disabled=currentPage>=totalPages;
+    }
+
+    function openPdf(url,title){
+      lastFocus=document.activeElement;
+      titleEl.textContent=title||'Documento';
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+      document.body.classList.add('modal-open');
+      loader.classList.remove('hidden');
+      loader.textContent='Cargando documento';
+      pageInfo.textContent='—';
+      prevBtn.disabled=true;nextBtn.disabled=true;
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      closeBtn.focus();
+
+      loadPdfJs()
+        .then(pdfjs=>pdfjs.getDocument(url).promise)
+        .then(doc=>{
+          pdfDoc=doc;
+          totalPages=doc.numPages;
+          currentPage=1;
+          renderPage(1);
+        })
+        .catch(err=>{
+          console.error('PDF load error',err);
+          loader.textContent='No se pudo cargar el documento.';
+        });
+    }
+
+    function closeModal(){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+      document.body.classList.remove('modal-open');
+      pdfDoc=null;currentPage=1;totalPages=1;pendingPage=null;
+      if(lastFocus&&typeof lastFocus.focus==='function')lastFocus.focus();
+    }
+
+    document.addEventListener('click',e=>{
+      const trigger=e.target.closest('[data-pdf-modal]');
+      if(!trigger)return;
+      e.preventDefault();
+      const url=trigger.getAttribute('href');
+      const title=trigger.getAttribute('data-pdf-title');
+      openPdf(url,title);
+    });
+
+    closeBtn.addEventListener('click',closeModal);
+    prevBtn.addEventListener('click',()=>queuePage(currentPage-1));
+    nextBtn.addEventListener('click',()=>queuePage(currentPage+1));
+
+    document.addEventListener('keydown',e=>{
+      if(!modal.classList.contains('open'))return;
+      if(e.key==='Escape'){closeModal();e.preventDefault()}
+      else if(e.key==='ArrowLeft')queuePage(currentPage-1);
+      else if(e.key==='ArrowRight')queuePage(currentPage+1);
+    });
+
+    let resizeTimer;
+    window.addEventListener('resize',()=>{
+      if(!pdfDoc||!modal.classList.contains('open'))return;
+      clearTimeout(resizeTimer);
+      resizeTimer=setTimeout(()=>renderPage(currentPage),200);
+    });
+  })();
+  </script>
 </body>
 </html>

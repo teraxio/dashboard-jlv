@@ -986,11 +986,9 @@ function completeBlock() {
 }
 
 function saveKeyTasks() {
-  const wk = currentWeekKey();
-  const data = getWeekData(wk);
-  const today = toLocalDateKey(new Date());
-  if (!data.weeks[wk].tasks) data.weeks[wk].tasks = {};
-  data.weeks[wk].tasks[today] = {
+  const data = getData();
+  if (!data.keyTasks) data.keyTasks = {};
+  data.keyTasks = {
     gzbr: document.getElementById('taskGZBR').value,
     imaginat: document.getElementById('taskImaginat').value,
     teraxio: document.getElementById('taskTeraxio').value
@@ -999,10 +997,28 @@ function saveKeyTasks() {
 }
 
 function loadKeyTasks() {
-  const wk = currentWeekKey();
-  const data = getWeekData(wk);
-  const today = toLocalDateKey(new Date());
-  const tasks = (data.weeks[wk].tasks && data.weeks[wk].tasks[today]) || {};
+  const data = getData();
+  // Migración: si no existe keyTasks pero sí hay weeks con tasks, toma la más reciente
+  if (!data.keyTasks && data.weeks) {
+    const allTaskEntries = [];
+    Object.values(data.weeks).forEach(wk => {
+      if (wk.tasks) {
+        Object.entries(wk.tasks).forEach(([day, t]) => {
+          allTaskEntries.push({ day, tasks: t });
+        });
+      }
+    });
+    allTaskEntries.sort((a, b) => b.day.localeCompare(a.day));
+    if (allTaskEntries.length > 0) {
+      data.keyTasks = {
+        gzbr: allTaskEntries[0].tasks.gzbr || '',
+        imaginat: allTaskEntries[0].tasks.imaginat || '',
+        teraxio: allTaskEntries[0].tasks.teraxio || ''
+      };
+      saveData(data);
+    }
+  }
+  const tasks = data.keyTasks || {};
   document.getElementById('taskGZBR').value = tasks.gzbr || '';
   document.getElementById('taskImaginat').value = tasks.imaginat || '';
   document.getElementById('taskTeraxio').value = tasks.teraxio || '';

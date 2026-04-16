@@ -831,12 +831,20 @@ const BLOCK_TYPES = [
 ];
 const LAUNCH_DATE = new Date(2026, 4, 31);
 
+function toLocalDateKey(d) {
+  const date = d instanceof Date ? d : new Date(d);
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return y + '-' + m + '-' + day;
+}
+
 function getWeekKey(d) {
   const date = new Date(d);
   const day = date.getDay();
   const diff = date.getDate() - day + (day === 0 ? -6 : 1);
   const monday = new Date(date.setDate(diff));
-  return monday.toISOString().split('T')[0];
+  return toLocalDateKey(monday);
 }
 
 function getMonday(d) {
@@ -915,13 +923,13 @@ function renderWeek() {
   const week = data.weeks[wk];
   const monday = getMonday(new Date());
   const today = new Date();
-  const todayStr = today.toISOString().split('T')[0];
+  const todayStr = toLocalDateKey(today);
   let html = '';
 
   for (let i = 0; i < 7; i++) {
     const dayDate = new Date(monday);
     dayDate.setDate(dayDate.getDate() + i);
-    const dayKey = dayDate.toISOString().split('T')[0];
+    const dayKey = toLocalDateKey(dayDate);
     const isToday = dayKey === todayStr;
 
     html += '<div class="day-row' + (isToday ? ' is-today' : '') + '">';
@@ -1021,7 +1029,7 @@ function completeBlock() {
 function saveKeyTasks() {
   const wk = currentWeekKey();
   const data = getWeekData(wk);
-  const today = new Date().toISOString().split('T')[0];
+  const today = toLocalDateKey(new Date());
   if (!data.weeks[wk].tasks) data.weeks[wk].tasks = {};
   data.weeks[wk].tasks[today] = {
     gzbr: document.getElementById('taskGZBR').value,
@@ -1034,7 +1042,7 @@ function saveKeyTasks() {
 function loadKeyTasks() {
   const wk = currentWeekKey();
   const data = getWeekData(wk);
-  const today = new Date().toISOString().split('T')[0];
+  const today = toLocalDateKey(new Date());
   const tasks = (data.weeks[wk].tasks && data.weeks[wk].tasks[today]) || {};
   document.getElementById('taskGZBR').value = tasks.gzbr || '';
   document.getElementById('taskImaginat').value = tasks.imaginat || '';
@@ -1120,7 +1128,7 @@ function updateMetrics() {
   let streak = 0;
   const checkDate = new Date();
   while (true) {
-    const dk = checkDate.toISOString().split('T')[0];
+    const dk = toLocalDateKey(checkDate);
     const cwk = getWeekKey(checkDate);
     const wd = (data.weeks && data.weeks[cwk]) ? data.weeks[cwk] : null;
     if (!wd || !wd.blocks) break;
@@ -1129,7 +1137,7 @@ function updateMetrics() {
       streak++;
       checkDate.setDate(checkDate.getDate() - 1);
     } else {
-      if (dk !== new Date().toISOString().split('T')[0]) break;
+      if (dk !== toLocalDateKey(new Date())) break;
       checkDate.setDate(checkDate.getDate() - 1);
     }
   }

@@ -450,41 +450,6 @@ body::before{
 .project-section.teraxio .task-input:focus{border-color:var(--trx-green);background:rgba(0,191,165,.04)}
 
 /* ================================================================
-   CLAUDE TASKS
-   ================================================================ */
-.claude-task{
-  position:relative;
-  display:flex;gap:10px;align-items:flex-start;
-  padding:12px 14px;
-  background:rgba(8,12,16,.5);
-  border:1px solid var(--line);
-  border-radius:12px;
-  margin-bottom:8px;
-  transition:border-color .25s ease,transform .25s ease;
-  overflow:hidden;
-}
-.claude-task::before{
-  content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:var(--tech);
-}
-.claude-task.gzbr::before{background:linear-gradient(180deg,var(--gzbr-cyan),var(--gzbr-magenta));box-shadow:0 0 10px rgba(0,229,255,.5)}
-.claude-task.imaginat::before{background:linear-gradient(180deg,var(--imt-teal-light),var(--imt-coral));box-shadow:0 0 10px rgba(79,169,167,.5)}
-.claude-task.teraxio::before{background:linear-gradient(180deg,var(--trx-green),var(--trx-blue-light));box-shadow:0 0 10px rgba(0,191,165,.5)}
-.claude-task:hover{border-color:var(--line-strong);transform:translateX(2px)}
-.claude-task-body{flex:1;min-width:0;padding-left:6px}
-.claude-task-title{font-size:.82rem;font-weight:500;color:var(--white);line-height:1.4;word-wrap:break-word}
-.claude-task-note{font-size:.7rem;color:var(--muted);margin-top:4px;font-style:italic}
-.claude-task-meta{font-size:.64rem;color:var(--muted-2);margin-top:6px;letter-spacing:.04em}
-.claude-task-delete{
-  background:none;border:1px solid transparent;
-  color:var(--muted-2);cursor:pointer;
-  font-size:1.1rem;padding:4px 10px;
-  flex-shrink:0;border-radius:8px;
-  transition:all .2s ease;
-}
-.claude-task-delete:hover{color:var(--red);border-color:rgba(255,82,82,.3);background:rgba(255,82,82,.08)}
-
-/* ================================================================
    WEEK VIEW
    ================================================================ */
 .day-row{
@@ -772,22 +737,16 @@ body::before{
     <div class="section-title"><span class="ico">🎯</span>Tareas clave del d&iacute;a</div>
     <div class="project-section gzbr">
       <div class="project-name">GZBR</div>
-      <input class="task-input" id="taskGZBR" placeholder="Tarea clave GZBR&hellip;" maxlength="120" oninput="saveKeyTasks()">
+      <input class="task-input" id="taskGZBR" placeholder="Tarea clave GZBR&hellip;" maxlength="120" autocomplete="off">
     </div>
     <div class="project-section imaginat">
       <div class="project-name">Imagina-T</div>
-      <input class="task-input" id="taskImaginat" placeholder="Tarea clave Imagina-T&hellip;" maxlength="120" oninput="saveKeyTasks()">
+      <input class="task-input" id="taskImaginat" placeholder="Tarea clave Imagina-T&hellip;" maxlength="120" autocomplete="off">
     </div>
     <div class="project-section teraxio">
       <div class="project-name">Teraxio</div>
-      <input class="task-input" id="taskTeraxio" placeholder="Tarea clave Teraxio&hellip;" maxlength="120" oninput="saveKeyTasks()">
+      <input class="task-input" id="taskTeraxio" placeholder="Tarea clave Teraxio&hellip;" maxlength="120" autocomplete="off">
     </div>
-  </section>
-
-  <!-- Claude tasks -->
-  <section class="section" id="claudeTasksSection" style="display:none">
-    <div class="section-title"><span class="ico">🤖</span>Tareas de Claude<span class="section-title-count" id="claudeTasksCount"></span></div>
-    <div id="claudeTasksContainer"></div>
   </section>
 
   <!-- Week view -->
@@ -1166,56 +1125,14 @@ function newWeek() {
   init();
 }
 
-async function loadClaudeTasks() {
-  try {
-    const res = await fetch('./tasks.json?_=' + Date.now());
-    if (!res.ok) return;
-    const json = await res.json();
-    const data = getData();
-    const deleted = data.claudeDeleted || [];
-    const active = (json.tasks || []).filter(t => !deleted.includes(t.id));
-    renderClaudeTasks(active);
-  } catch (e) {
-    console.warn('No se pudo cargar tasks.json', e);
-  }
-}
-
-function renderClaudeTasks(tasks) {
-  const section = document.getElementById('claudeTasksSection');
-  const container = document.getElementById('claudeTasksContainer');
-  const count = document.getElementById('claudeTasksCount');
-  if (!tasks.length) {
-    section.style.display = 'none';
-    return;
-  }
-  section.style.display = '';
-  count.textContent = tasks.length + (tasks.length === 1 ? ' tarea' : ' tareas');
-  const labels = {gzbr:'GZBR',imaginat:'Imagina-T',teraxio:'Teraxio',general:'General'};
-  let html = '';
-  tasks.forEach(t => {
-    const proj = t.project || 'general';
-    html += '<div class="claude-task ' + escapeHtml(proj) + '">';
-    html += '<div class="claude-task-body">';
-    html += '<div class="claude-task-title">' + escapeHtml(t.title || '') + '</div>';
-    if (t.note) html += '<div class="claude-task-note">' + escapeHtml(t.note) + '</div>';
-    const metaParts = [];
-    if (labels[proj]) metaParts.push(labels[proj]);
-    if (t.created) metaParts.push(t.created);
-    if (metaParts.length) html += '<div class="claude-task-meta">' + metaParts.join(' · ') + '</div>';
-    html += '</div>';
-    html += '<button class="claude-task-delete" onclick="deleteClaudeTask(\'' + escapeHtml(t.id) + '\')" title="Quitar del panel">&times;</button>';
-    html += '</div>';
+function attachTaskListeners() {
+  ['taskGZBR','taskImaginat','taskTeraxio'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('input', saveKeyTasks);
+    el.addEventListener('blur', saveKeyTasks);
+    el.addEventListener('change', saveKeyTasks);
   });
-  container.innerHTML = html;
-}
-
-function deleteClaudeTask(id) {
-  if (!confirm('¿Seguro que quieres quitar esta tarea del panel?')) return;
-  const data = getData();
-  if (!data.claudeDeleted) data.claudeDeleted = [];
-  if (!data.claudeDeleted.includes(id)) data.claudeDeleted.push(id);
-  saveData(data);
-  loadClaudeTasks();
 }
 
 function init() {
@@ -1223,9 +1140,9 @@ function init() {
   updateGZBRProgress();
   renderWeek();
   loadKeyTasks();
+  attachTaskListeners();
   renderVictories();
   updateMetrics();
-  loadClaudeTasks();
 }
 
 document.addEventListener('DOMContentLoaded', init);

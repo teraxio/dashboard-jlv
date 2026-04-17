@@ -770,6 +770,12 @@ body::before{
   <section class="section">
     <div class="section-title"><span class="ico">🎯</span>Tareas clave</div>
     <div id="tasks-root"></div>
+    <div style="padding: 10px 0 4px; text-align: right;">
+      <button id="sync-notion-btn" onclick="syncToNotion()" style="font-size:11px; background:rgba(170,0,221,0.15); border:1px solid #AA00DD; border-radius:6px; padding:5px 14px; color:#AA00DD; cursor:pointer;">
+        ↑ Sincronizar a Notion
+      </button>
+      <span id="sync-status" style="font-size:11px; color:rgba(255,255,255,0.35); margin-left:8px;"></span>
+    </div>
   </section>
 
   <!-- Week view -->
@@ -1276,6 +1282,30 @@ function tsSave(projId) {
 function tsToggle(projId, taskId) {
   const t = (taskState.tasks[projId]||[]).find(t => t.id === taskId);
   if (t) { t.done = !t.done; saveTasks(); renderTasks(); }
+}
+
+async function syncToNotion() {
+  const btn = document.getElementById('sync-notion-btn');
+  const status = document.getElementById('sync-status');
+  btn.disabled = true;
+  status.textContent = 'Sincronizando...';
+  try {
+    const res = await fetch('/.netlify/functions/sync-tasks', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(taskState.tasks)
+    });
+    const data = await res.json();
+    if (data.ok) {
+      status.textContent = `✓ ${data.synced} tareas sincronizadas`;
+      setTimeout(() => { status.textContent = ''; }, 4000);
+    } else {
+      status.textContent = '✗ Error al sincronizar';
+    }
+  } catch(e) {
+    status.textContent = '✗ Sin conexión';
+  }
+  btn.disabled = false;
 }
 
 // Init tareas

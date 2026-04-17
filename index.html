@@ -633,6 +633,40 @@ body::before{
   }
   .hero-particles{display:none}
 }
+
+/* ================================================================
+   TAREAS V2
+   ================================================================ */
+.ts-project { margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; overflow: hidden; background: rgba(255,255,255,0.03); }
+.ts-proj-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.ts-proj-label { display: flex; align-items: center; gap: 8px; }
+.ts-proj-dot { width: 8px; height: 8px; border-radius: 50%; }
+.ts-proj-name { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+.ts-add-btn { font-size: 11px; color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.07); border: none; border-radius: 6px; padding: 3px 10px; cursor: pointer; }
+.ts-add-btn:hover { background: rgba(255,255,255,0.13); color: #fff; }
+.ts-task-list { padding: 4px 0; }
+.ts-task { display: flex; align-items: flex-start; gap: 10px; padding: 8px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+.ts-task:last-child { border-bottom: none; }
+.ts-check { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.25); flex-shrink: 0; margin-top: 2px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+.ts-check.done { background: rgba(0,191,170,0.3); border-color: #00BFAA; }
+.ts-check.done::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #00BFAA; }
+.ts-task-body { flex: 1; min-width: 0; }
+.ts-task-text { font-size: 13px; color: rgba(255,255,255,0.85); line-height: 1.4; }
+.ts-task-text.done { color: rgba(255,255,255,0.3); text-decoration: line-through; }
+.ts-tag { font-size: 10px; padding: 2px 7px; border-radius: 20px; font-weight: 600; margin-top: 3px; display: inline-block; }
+.ts-tag.estrategia { background: rgba(127,119,221,0.2); color: #b3aef5; }
+.ts-tag.tactica { background: rgba(0,191,170,0.15); color: #00BFAA; }
+.ts-tag.accion { background: rgba(239,159,39,0.15); color: #efb347; }
+.ts-tag.urgente { background: rgba(220,53,69,0.2); color: #f87171; }
+.ts-empty { padding: 14px; font-size: 12px; color: rgba(255,255,255,0.25); text-align: center; }
+.ts-input-row { display: flex; gap: 6px; padding: 8px 14px; border-top: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); }
+.ts-input { flex: 1; font-size: 12px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 5px 10px; color: #fff; }
+.ts-input::placeholder { color: rgba(255,255,255,0.3); }
+.ts-select { font-size: 11px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 5px 8px; color: #fff; }
+.ts-save-btn { font-size: 11px; background: rgba(0,191,170,0.2); border: 1px solid #00BFAA; border-radius: 6px; padding: 5px 12px; color: #00BFAA; cursor: pointer; }
+.ts-save-btn:hover { background: rgba(0,191,170,0.35); }
+.ts-done-section { padding: 4px 14px 8px; }
+.ts-done-label { font-size: 10px; color: rgba(255,255,255,0.25); margin-bottom: 4px; }
 </style>
 </head>
 <body>
@@ -732,21 +766,10 @@ body::before{
     </div>
   </section>
 
-  <!-- Key tasks -->
+  <!-- Key tasks v2 -->
   <section class="section">
-    <div class="section-title"><span class="ico">🎯</span>Tareas clave del d&iacute;a</div>
-    <div class="project-section gzbr">
-      <div class="project-name">GZBR</div>
-      <input class="task-input" id="taskGZBR" placeholder="Tarea clave GZBR&hellip;" maxlength="120" autocomplete="off">
-    </div>
-    <div class="project-section imaginat">
-      <div class="project-name">Imagina-T</div>
-      <input class="task-input" id="taskImaginat" placeholder="Tarea clave Imagina-T&hellip;" maxlength="120" autocomplete="off">
-    </div>
-    <div class="project-section teraxio">
-      <div class="project-name">Teraxio</div>
-      <input class="task-input" id="taskTeraxio" placeholder="Tarea clave Teraxio&hellip;" maxlength="120" autocomplete="off">
-    </div>
+    <div class="section-title"><span class="ico">🎯</span>Tareas clave</div>
+    <div id="tasks-root"></div>
   </section>
 
   <!-- Week view -->
@@ -985,45 +1008,6 @@ function completeBlock() {
   openBlock(currentBlockId);
 }
 
-function saveKeyTasks() {
-  const data = getData();
-  if (!data.keyTasks) data.keyTasks = {};
-  data.keyTasks = {
-    gzbr: document.getElementById('taskGZBR').value,
-    imaginat: document.getElementById('taskImaginat').value,
-    teraxio: document.getElementById('taskTeraxio').value
-  };
-  saveData(data);
-}
-
-function loadKeyTasks() {
-  const data = getData();
-  // Migración: si no existe keyTasks pero sí hay weeks con tasks, toma la más reciente
-  if (!data.keyTasks && data.weeks) {
-    const allTaskEntries = [];
-    Object.values(data.weeks).forEach(wk => {
-      if (wk.tasks) {
-        Object.entries(wk.tasks).forEach(([day, t]) => {
-          allTaskEntries.push({ day, tasks: t });
-        });
-      }
-    });
-    allTaskEntries.sort((a, b) => b.day.localeCompare(a.day));
-    if (allTaskEntries.length > 0) {
-      data.keyTasks = {
-        gzbr: allTaskEntries[0].tasks.gzbr || '',
-        imaginat: allTaskEntries[0].tasks.imaginat || '',
-        teraxio: allTaskEntries[0].tasks.teraxio || ''
-      };
-      saveData(data);
-    }
-  }
-  const tasks = data.keyTasks || {};
-  document.getElementById('taskGZBR').value = tasks.gzbr || '';
-  document.getElementById('taskImaginat').value = tasks.imaginat || '';
-  document.getElementById('taskTeraxio').value = tasks.teraxio || '';
-}
-
 function renderVictories() {
   const wk = currentWeekKey();
   const data = getWeekData(wk);
@@ -1141,22 +1125,10 @@ function newWeek() {
   init();
 }
 
-function attachTaskListeners() {
-  ['taskGZBR','taskImaginat','taskTeraxio'].forEach(id => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.addEventListener('input', saveKeyTasks);
-    el.addEventListener('blur', saveKeyTasks);
-    el.addEventListener('change', saveKeyTasks);
-  });
-}
-
 function init() {
   updateWeekLabel();
   updateGZBRProgress();
   renderWeek();
-  loadKeyTasks();
-  attachTaskListeners();
   renderVictories();
   updateMetrics();
 }
@@ -1165,6 +1137,151 @@ document.addEventListener('DOMContentLoaded', init);
 document.getElementById('blockModal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
+
+// ─── SISTEMA DE TAREAS V2 ───────────────────────────────────────────
+const TASK_PROJECTS = [
+  { id: 'gzbr',     name: 'GZBR',      color: '#00BFAA' },
+  { id: 'imaginat', name: 'Imagina-T', color: '#7F77DD' },
+  { id: 'teraxio',  name: 'Teraxio',   color: '#3B6D11' }
+];
+
+const TAG_LABELS = { estrategia: 'estrategia', tactica: 'táctica', accion: 'acción', urgente: 'urgente' };
+const TAG_CLASSES = Object.keys(TAG_LABELS);
+
+let taskState = { tasks: {}, addingTo: null };
+
+function loadTasks() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('jlv-tasks') || '{}');
+    taskState.tasks = saved.tasks || {};
+  } catch(e) { taskState.tasks = {}; }
+}
+
+function saveTasks() {
+  localStorage.setItem('jlv-tasks', JSON.stringify({ tasks: taskState.tasks }));
+}
+
+function renderTasks() {
+  const root = document.getElementById('tasks-root');
+  if (!root) return;
+  root.innerHTML = '';
+
+  TASK_PROJECTS.forEach(proj => {
+    const allTasks = taskState.tasks[proj.id] || [];
+    const active = allTasks.filter(t => !t.done);
+    const done = allTasks.filter(t => t.done);
+
+    const wrap = document.createElement('div');
+    wrap.className = 'ts-project';
+
+    // Header
+    const hdr = document.createElement('div');
+    hdr.className = 'ts-proj-header';
+    hdr.innerHTML = `
+      <div class="ts-proj-label">
+        <div class="ts-proj-dot" style="background:${proj.color}"></div>
+        <span class="ts-proj-name" style="color:${proj.color}">${proj.name}</span>
+        <span style="font-size:11px;color:rgba(255,255,255,0.3)">${active.length} activa${active.length!==1?'s':''}</span>
+      </div>
+      <button class="ts-add-btn" onclick="tsStartAdd('${proj.id}')">+ tarea</button>
+    `;
+    wrap.appendChild(hdr);
+
+    // Task list
+    const list = document.createElement('div');
+    list.className = 'ts-task-list';
+
+    if (active.length === 0 && done.length === 0) {
+      list.innerHTML = `<div class="ts-empty">Sin tareas — agrega la primera</div>`;
+    }
+
+    active.forEach(task => {
+      const t = document.createElement('div');
+      t.className = 'ts-task';
+      t.innerHTML = `
+        <div class="ts-check" onclick="tsToggle('${proj.id}','${task.id}')"></div>
+        <div class="ts-task-body">
+          <div class="ts-task-text">${task.text}</div>
+          <span class="ts-tag ${task.tag}">${TAG_LABELS[task.tag]||task.tag}</span>
+        </div>
+      `;
+      list.appendChild(t);
+    });
+
+    if (done.length > 0) {
+      const doneSection = document.createElement('div');
+      doneSection.className = 'ts-done-section';
+      doneSection.innerHTML = `<div class="ts-done-label">Completadas (${done.length})</div>`;
+      done.forEach(task => {
+        const t = document.createElement('div');
+        t.className = 'ts-task';
+        t.innerHTML = `
+          <div class="ts-check done" onclick="tsToggle('${proj.id}','${task.id}')"></div>
+          <div class="ts-task-body">
+            <div class="ts-task-text done">${task.text}</div>
+            <span class="ts-tag ${task.tag}">${TAG_LABELS[task.tag]||task.tag}</span>
+          </div>
+        `;
+        doneSection.appendChild(t);
+      });
+      list.appendChild(doneSection);
+    }
+
+    wrap.appendChild(list);
+
+    // Input row (si está agregando a este proyecto)
+    if (taskState.addingTo === proj.id) {
+      const inputRow = document.createElement('div');
+      inputRow.className = 'ts-input-row';
+      inputRow.innerHTML = `
+        <input class="ts-input" id="ts-input-${proj.id}" placeholder="Nueva tarea..." />
+        <select class="ts-select" id="ts-tag-${proj.id}">
+          <option value="accion">acción</option>
+          <option value="estrategia">estrategia</option>
+          <option value="tactica">táctica</option>
+          <option value="urgente">urgente</option>
+        </select>
+        <button class="ts-save-btn" onclick="tsSave('${proj.id}')">guardar</button>
+      `;
+      wrap.appendChild(inputRow);
+      setTimeout(() => {
+        const inp = document.getElementById(`ts-input-${proj.id}`);
+        if (inp) {
+          inp.focus();
+          inp.addEventListener('keydown', e => { if (e.key === 'Enter') tsSave(proj.id); if (e.key === 'Escape') { taskState.addingTo = null; renderTasks(); } });
+        }
+      }, 50);
+    }
+
+    root.appendChild(wrap);
+  });
+}
+
+function tsStartAdd(projId) {
+  taskState.addingTo = projId;
+  renderTasks();
+}
+
+function tsSave(projId) {
+  const inp = document.getElementById(`ts-input-${projId}`);
+  const sel = document.getElementById(`ts-tag-${projId}`);
+  if (!inp || !inp.value.trim()) { taskState.addingTo = null; renderTasks(); return; }
+  if (!taskState.tasks[projId]) taskState.tasks[projId] = [];
+  taskState.tasks[projId].push({ id: Date.now().toString(), text: inp.value.trim(), tag: sel.value, done: false });
+  taskState.addingTo = null;
+  saveTasks();
+  renderTasks();
+}
+
+function tsToggle(projId, taskId) {
+  const t = (taskState.tasks[projId]||[]).find(t => t.id === taskId);
+  if (t) { t.done = !t.done; saveTasks(); renderTasks(); }
+}
+
+// Init tareas
+loadTasks();
+renderTasks();
+// ─── FIN SISTEMA DE TAREAS V2 ────────────────────────────────────────
 </script>
 </body>
 </html>

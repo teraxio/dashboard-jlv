@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GZBR · Brújula del Negocio</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0A0A0A;--bg2:#111;--bg3:#1A1A1A;
+  --cyan:#00E5FF;--magenta:#FF00FF;--white:#FFFFFF;--gray:#888;
+  --amber:#E8A020;--red:#CC2222;--green:#2A8C2A;
+  --teal:#00B4A0;--purple:#9B59B6;--coral:#FF6B6B;--blue:#3498DB;
+  --radius:12px;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:system-ui,-apple-system,sans-serif;
+  background:var(--bg);color:var(--white);
+  line-height:1.5;-webkit-font-smoothing:antialiased;
+}
+
+/* ── HEADER ── */
+.header{
+  position:sticky;top:0;z-index:100;
+  background:var(--bg);border-bottom:1px solid #222;
+  padding:12px 20px;text-align:center;
+  backdrop-filter:blur(10px);
+}
+.header-logo{font-size:1.5rem;font-weight:900;color:var(--cyan);letter-spacing:2px}
+.header-sub{font-size:.75rem;color:var(--gray);margin-top:2px}
+
+/* ── SECTIONS ── */
+section{padding:24px 16px;max-width:900px;margin:0 auto}
+.section-title{
+  font-size:1.1rem;font-weight:700;color:var(--cyan);
+  text-transform:uppercase;letter-spacing:2px;
+  margin-bottom:16px;padding-bottom:8px;
+  border-bottom:2px solid #222;
+}
+
+/* ── SEMAFORO GRID ── */
+.grid-2x2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:600px){.grid-2x2{grid-template-columns:1fr}}
+
+.card{
+  background:var(--bg2);border-radius:var(--radius);
+  padding:16px;border-left:4px solid var(--gray);
+  transition:transform .15s;
+}
+.card:active{transform:scale(.98)}
+.card-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.card-emoji{font-size:1.5rem}
+.card-title{font-size:.95rem;font-weight:700}
+.card-semaforo{font-size:.85rem;margin-bottom:6px}
+.card-text{font-size:.8rem;color:#ccc;margin-bottom:4px}
+.card-sub{font-size:.75rem;color:var(--gray)}
+.card-action{
+  font-size:.75rem;color:var(--cyan);margin-top:8px;
+  padding:6px 10px;background:#0A2A2A;border-radius:6px;
+  display:inline-block;
+}
+.border-amber{border-left-color:var(--amber)}
+.border-red{border-left-color:var(--red)}
+.border-green{border-left-color:var(--green)}
+
+/* ── TOP 3 URGENTE ── */
+.urgente-block{
+  background:var(--bg3);border-radius:var(--radius);
+  padding:16px;margin-bottom:10px;border-left:4px solid var(--gray);
+}
+.urgente-num{font-size:.85rem;font-weight:900;margin-bottom:4px}
+.urgente-text{font-size:.85rem;color:#ddd}
+.urgente-unlock{font-size:.75rem;color:var(--gray);margin-top:6px;font-style:italic}
+.u-coral{border-left-color:var(--coral)}.u-coral .urgente-num{color:var(--coral)}
+.u-teal{border-left-color:var(--teal)}.u-teal .urgente-num{color:var(--teal)}
+.u-purple{border-left-color:var(--purple)}.u-purple .urgente-num{color:var(--purple)}
+
+/* ── TIMELINE ── */
+.timeline{position:relative;padding-left:24px}
+.timeline::before{
+  content:'';position:absolute;left:8px;top:0;bottom:0;
+  width:2px;background:#333;
+}
+.tl-item{position:relative;margin-bottom:20px;padding-left:16px}
+.tl-dot{
+  position:absolute;left:-20px;top:4px;
+  width:12px;height:12px;border-radius:50%;border:2px solid #333;
+  background:var(--bg);
+}
+.tl-date{font-size:.8rem;font-weight:700;margin-bottom:2px}
+.tl-desc{font-size:.8rem;color:#bbb}
+.tl-amber .tl-dot{border-color:var(--amber);background:var(--amber)}
+.tl-amber .tl-date{color:var(--amber)}
+.tl-red .tl-dot{border-color:var(--red);background:var(--red)}
+.tl-red .tl-date{color:var(--red)}
+.tl-green .tl-dot{border-color:var(--green);background:var(--green)}
+.tl-green .tl-date{color:var(--green)}
+
+/* ── LOOPS ── */
+.loops-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:600px){.loops-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:380px){.loops-grid{grid-template-columns:1fr}}
+.loop-card{
+  background:var(--bg3);border-radius:var(--radius);
+  padding:14px;text-align:center;border-top:3px solid var(--gray);
+}
+.loop-num{font-size:1.8rem;font-weight:900;opacity:.3}
+.loop-name{font-size:.85rem;font-weight:700;margin:4px 0}
+.loop-days{font-size:.7rem;color:var(--gray)}
+.loop-desc{font-size:.75rem;color:#bbb;margin-top:6px}
+.loop-gate{
+  font-size:.65rem;color:var(--cyan);margin-top:8px;
+  padding:3px 8px;background:#0A2A2A;border-radius:4px;
+  display:inline-block;
+}
+.l-teal{border-top-color:var(--teal)}.l-teal .loop-name{color:var(--teal)}
+.l-purple{border-top-color:var(--purple)}.l-purple .loop-name{color:var(--purple)}
+.l-amber{border-top-color:var(--amber)}.l-amber .loop-name{color:var(--amber)}
+.l-coral{border-top-color:var(--coral)}.l-coral .loop-name{color:var(--coral)}
+
+/* ── CASCADA ── */
+.cascada-label{font-size:.75rem;color:var(--gray);text-align:center;margin-bottom:8px}
+.cascada-bar{
+  display:flex;border-radius:var(--radius);overflow:hidden;
+  height:40px;margin-bottom:6px;
+}
+.cascada-seg{
+  display:flex;align-items:center;justify-content:center;
+  font-size:.7rem;font-weight:700;color:#000;
+}
+.cascada-footer{font-size:.7rem;color:var(--gray);text-align:center;margin-top:4px}
+
+/* ── LINKS ── */
+.links-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:380px){.links-grid{grid-template-columns:1fr}}
+.link-btn{
+  display:block;text-decoration:none;
+  background:var(--bg3);color:var(--white);
+  padding:12px 14px;border-radius:var(--radius);
+  font-size:.8rem;text-align:center;
+  border:1px solid #333;transition:border-color .15s;
+}
+.link-btn:hover,.link-btn:active{border-color:var(--cyan)}
+
+/* ── FOOTER ── */
+.footer{
+  text-align:center;padding:24px 16px;
+  font-size:.65rem;color:#555;border-top:1px solid #1a1a1a;
+  margin-top:20px;
+}
+</style>
+</head>
+<body>
+
+<!-- ════ HEADER ════ -->
+<header class="header">
+  <div class="header-logo">🎸 GZBR</div>
+  <div class="header-sub">Brújula del negocio · V9.1 · Actualizado: 1 Mayo 2026</div>
+</header>
+
+<!-- ════ SECCIÓN 1: SEMÁFORO ════ -->
+<section>
+  <div class="section-title">Semáforo del Negocio</div>
+  <div class="grid-2x2">
+    <div class="card border-amber">
+      <div class="card-head"><span class="card-emoji">🎸</span><span class="card-title">Producto</span></div>
+      <div class="card-semaforo">🟡 En preparación</div>
+      <div class="card-text">Skool RIFF · BandLoop™ · 66 lecciones</div>
+      <div class="card-sub">5 ICAs firmados · JackTrip &lt;25ms incluido</div>
+      <div class="card-action">→ Subir video prueba al pipeline</div>
+    </div>
+    <div class="card border-red">
+      <div class="card-head"><span class="card-emoji">📣</span><span class="card-title">Crecimiento</span></div>
+      <div class="card-semaforo">🔴 Bloqueado</div>
+      <div class="card-text">Redes · Eventos · WhatsApp</div>
+      <div class="card-sub">Sin cuentas USA · 3 eventos fundraising</div>
+      <div class="card-action">→ Confirmar 3 bares + % split</div>
+    </div>
+    <div class="card border-amber">
+      <div class="card-head"><span class="card-emoji">⚙️</span><span class="card-title">Operaciones</span></div>
+      <div class="card-semaforo">🟡 Parcial</div>
+      <div class="card-text">JLV + Javier Pérez activos</div>
+      <div class="card-sub">Dir. IT y Dir. Contenido vacantes</div>
+      <div class="card-action">→ pip install openai-whisper</div>
+    </div>
+    <div class="card border-green">
+      <div class="card-head"><span class="card-emoji">📊</span><span class="card-title">Gobierno</span></div>
+      <div class="card-semaforo">🟢 Definido</div>
+      <div class="card-text">KPIs · Pivots A-E · Gates V9.1</div>
+      <div class="card-sub">Lanzamiento 1 Jul · GATE1 8 Jul</div>
+      <div class="card-action">→ Confirmar bares = activa todo</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ SECCIÓN 2: TOP 3 URGENTE ════ -->
+<section>
+  <div class="section-title">🔥 Top 3 Urgente · Esta Semana</div>
+  <div class="urgente-block u-coral">
+    <div class="urgente-num">#1 FUNDRAISING</div>
+    <div class="urgente-text">Llenar nombres 3 bares + confirmar % split por WhatsApp</div>
+    <div class="urgente-unlock">→ Desbloquea: LLC → Stripe → Skool → Lanzamiento 1 Jul</div>
+  </div>
+  <div class="urgente-block u-teal">
+    <div class="urgente-num">#2 PRODUCCIÓN</div>
+    <div class="urgente-text">pip install openai-whisper + subir video prueba al pipeline</div>
+    <div class="urgente-unlock">→ Desbloquea: pipeline automático activo</div>
+  </div>
+  <div class="urgente-block u-purple">
+    <div class="urgente-num">#3 REDES</div>
+    <div class="urgente-text">Decidir dispositivo de grabación durante Mayo (Samsung Note 10+)</div>
+    <div class="urgente-unlock">→ Desbloquea: contenido en stock antes del lanzamiento</div>
+  </div>
+</section>
+
+<!-- ════ SECCIÓN 3: CRONOGRAMA ════ -->
+<section>
+  <div class="section-title">📅 Cronograma Reverso</div>
+  <div class="timeline">
+    <div class="tl-item tl-amber">
+      <div class="tl-dot"></div>
+      <div class="tl-date">MAYO 2026</div>
+      <div class="tl-desc">Fundraising 3 eventos · meta $1,140 USD</div>
+    </div>
+    <div class="tl-item tl-amber">
+      <div class="tl-dot"></div>
+      <div class="tl-date">JUNIO S1-2</div>
+      <div class="tl-desc">Celular USA + línea prepagada</div>
+    </div>
+    <div class="tl-item tl-red">
+      <div class="tl-dot"></div>
+      <div class="tl-date">JUNIO S3-4</div>
+      <div class="tl-desc">LLC Delaware + Stripe Atlas</div>
+    </div>
+    <div class="tl-item tl-green">
+      <div class="tl-dot"></div>
+      <div class="tl-date">🚀 1 JULIO 2026</div>
+      <div class="tl-desc">LANZAMIENTO GZBR</div>
+    </div>
+    <div class="tl-item tl-green">
+      <div class="tl-dot"></div>
+      <div class="tl-date">8 JULIO 2026</div>
+      <div class="tl-desc">GATE 1: 10 miembros pagos</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ SECCIÓN 4: BANDLOOP LOOPS ════ -->
+<section>
+  <div class="section-title">🔄 Pipeline de Producto · BandLoop™</div>
+  <div class="loops-grid">
+    <div class="loop-card l-teal">
+      <div class="loop-num">1</div>
+      <div class="loop-name">IGNITE</div>
+      <div class="loop-days">D1-7 · Chispa</div>
+      <div class="loop-desc">Quick Win masivo + setup equipo</div>
+      <div class="loop-gate">Gate 1</div>
+    </div>
+    <div class="loop-card l-purple">
+      <div class="loop-num">2</div>
+      <div class="loop-name">GROOVE</div>
+      <div class="loop-days">D8-14 · Ritmo</div>
+      <div class="loop-desc">Vocabulario + primer proyecto</div>
+      <div class="loop-gate">Gate 2</div>
+    </div>
+    <div class="loop-card l-amber">
+      <div class="loop-num">3</div>
+      <div class="loop-name">FLOW</div>
+      <div class="loop-days">D15-21 · Flujo</div>
+      <div class="loop-desc">Creatividad + proyecto propio</div>
+      <div class="loop-gate">Gate 3</div>
+    </div>
+    <div class="loop-card l-coral">
+      <div class="loop-num">4</div>
+      <div class="loop-name">LAUNCH</div>
+      <div class="loop-days">D22-30 · Mundo</div>
+      <div class="loop-desc">Debut + Graduación Level 1</div>
+      <div class="loop-gate">Graduación</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ SECCIÓN 5: CASCADA ════ -->
+<section>
+  <div class="section-title">💰 Cascada de Revenue</div>
+  <div class="cascada-label">Cascada V9.1 · INVIOLABLE · $14/mes base · JackTrip &lt;25ms incluido</div>
+  <div class="cascada-bar">
+    <div class="cascada-seg" style="width:20%;background:var(--cyan)">ICAs 20%</div>
+    <div class="cascada-seg" style="width:28%;background:var(--blue)">GZBR 28%</div>
+    <div class="cascada-seg" style="width:39%;background:var(--green);color:#fff">JLV 39%</div>
+    <div class="cascada-seg" style="width:13%;background:var(--purple);color:#fff">JP 13%</div>
+  </div>
+  <div class="cascada-footer">Breakeven: 100 miembros · Oct 2026 · GATE1: 10 mbr · GATE2: 50 mbr</div>
+</section>
+
+<!-- ════ SECCIÓN 6: LINKS RÁPIDOS ════ -->
+<section>
+  <div class="section-title">🔗 Links Rápidos</div>
+  <div class="links-grid">
+    <a class="link-btn" href="https://app.notion.com/p/352e54e280a781ec82b1f877a92ba7f3" target="_blank">📋 Notion ARRANQUE</a>
+    <a class="link-btn" href="https://app.notion.com/p/352e54e280a781978bfeee22d607019c" target="_blank">📦 Caja Negra</a>
+    <a class="link-btn" href="https://app.notion.com/p/353e54e280a78131897fe0fbcf6caacb" target="_blank">🎬 Cola Aprobación</a>
+    <a class="link-btn" href="https://app.notion.com/p/353e54e280a7816a80a9fa7d202d54b4" target="_blank">🎤 Fundraising</a>
+    <a class="link-btn" href="https://app.notion.com/p/353e54e280a781be93baeabd6a4e012f" target="_blank">🇺🇸 Infra USA</a>
+    <a class="link-btn" href="https://wa.me/526633243845" target="_blank">💬 WhatsApp CTA</a>
+  </div>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<footer class="footer">
+  GZBR V9.1 · dashboard-jlv.netlify.app/mapa · Última actualización: 1 Mayo 2026
+</footer>
+
+</body>
+</html>

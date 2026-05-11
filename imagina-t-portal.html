@@ -2,856 +2,306 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#080c10">
-<title>Imagina-T — Portal de Recursos | Fundadores</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imagina-T · Portal Fundadores · Marco de Gobierno</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#080c10;
-  --bg-2:#0d1318;
-  --teal:#2E7D7B;
-  --teal-light:#4FA9A7;
-  --teal-soft:#6BC4C2;
-  --coral:#E8927C;
-  --coral-soft:#F2B3A1;
-  --lavanda:#9B8EC4;
-  --lavanda-light:#b6a9d9;
-  --white:#F0F4F8;
-  --muted:rgba(240,244,248,.58);
-  --muted-2:rgba(240,244,248,.42);
-  --line:rgba(240,244,248,.08);
+  --azul:#20AEE5;--rosa:#F296B7;--lila:#E4C8E0;--lavanda:#B1CDEC;
+  --verde:#B6DABC;--amarillo:#FCE67D;--naranja:#F9B55B;--coral:#F08481;
+  --bg:#FAFAFA;--card:#FFFFFF;--text:#1A1A2E;--muted:#6B7280;
+  --border:#E5E7EB;
 }
-html,body{background:var(--bg);color:var(--white);font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased;min-height:100%}
-body{
-  background:
-    radial-gradient(1200px 640px at 50% -8%,rgba(46,125,123,.20),transparent 60%),
-    radial-gradient(900px 520px at 85% 18%,rgba(232,146,124,.11),transparent 60%),
-    radial-gradient(800px 520px at 12% 32%,rgba(155,142,196,.09),transparent 60%),
-    var(--bg);
-  padding:0 20px 70px;
-  overflow-x:hidden;
-  line-height:1.55;
-  min-height:100vh;
-}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 
-/* ========= Decorative geometric grid in background ========= */
-body::before{
-  content:"";
-  position:fixed;inset:0;pointer-events:none;z-index:0;
-  background-image:
-    linear-gradient(var(--line) 1px,transparent 1px),
-    linear-gradient(90deg,var(--line) 1px,transparent 1px);
-  background-size:64px 64px;
-  mask-image:radial-gradient(ellipse 70% 55% at 50% 30%,#000 15%,transparent 80%);
-  -webkit-mask-image:radial-gradient(ellipse 70% 55% at 50% 30%,#000 15%,transparent 80%);
-  opacity:.35;
-}
+/* HEADER */
+.site-header{background:#fff;border-bottom:2px solid var(--border);padding:1.25rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.logo{font-size:1.6rem;font-weight:800;letter-spacing:-0.5px}
+.logo .azul{color:var(--azul)}
+.logo .rosa{color:var(--rosa)}
+.logo-sub{font-size:0.75rem;color:var(--muted);font-weight:500;margin-top:1px}
+.header-badge{background:var(--azul);color:#fff;font-size:0.7rem;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:0.05em}
 
-.container{max-width:1120px;margin:0 auto;position:relative;z-index:1}
+/* HERO */
+.hero{background:linear-gradient(135deg,#EEF7FD 0%,#FDF0F5 50%,#F5F0FB 100%);padding:2.5rem 2rem 2rem;border-bottom:1px solid var(--border)}
+.hero-inner{max-width:900px;margin:0 auto}
+.pivot-note{background:#fff;border-left:4px solid var(--naranja);border-radius:0 12px 12px 0;padding:0.75rem 1.25rem;font-size:0.82rem;color:#854F0B;margin-bottom:1.5rem;line-height:1.5}
+.mv-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}
+.mv-card{background:#fff;border-radius:14px;padding:1rem 1.25rem;border:1px solid var(--border)}
+.mv-label{font-size:0.65rem;font-weight:700;letter-spacing:0.1em;margin-bottom:5px}
+.mv-label.m{color:var(--azul)}
+.mv-label.v{color:var(--rosa)}
+.mv-text{font-size:0.82rem;line-height:1.6;color:var(--text)}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem}
+.kpi-card{background:#fff;border-radius:14px;padding:0.9rem 1rem;text-align:center;border:1px solid var(--border)}
+.kpi-num{font-size:1.8rem;font-weight:800;display:block;line-height:1}
+.kpi-label{font-size:0.68rem;color:var(--muted);font-weight:600;margin-top:4px;text-transform:uppercase;letter-spacing:0.05em}
 
-/* ================================================================
-   HERO
-   ================================================================ */
-.hero{
-  position:relative;
-  padding:84px 12px 60px;
-  text-align:center;
-  overflow:hidden;
-  animation:fadeUp .9s cubic-bezier(.22,.61,.36,1) both;
-}
+/* MAIN */
+.main{max-width:900px;margin:0 auto;padding:2rem}
 
-/* CSS-only floating particles */
-.hero-particles{position:absolute;inset:0;pointer-events:none;z-index:0}
-.hero-particles span{
-  position:absolute;bottom:-20px;
-  width:6px;height:6px;border-radius:50%;
-  background:var(--teal-light);
-  opacity:.4;
-  filter:blur(.5px);
-  animation:floatUp 16s linear infinite;
-}
-.hero-particles span:nth-child(1){left:7%;animation-delay:0s}
-.hero-particles span:nth-child(2){left:18%;animation-delay:-3s;background:var(--coral);width:4px;height:4px}
-.hero-particles span:nth-child(3){left:29%;animation-delay:-6s;background:var(--lavanda)}
-.hero-particles span:nth-child(4){left:43%;animation-delay:-1.5s;background:var(--teal-soft);width:8px;height:8px}
-.hero-particles span:nth-child(5){left:55%;animation-delay:-8s;background:var(--coral-soft);width:5px;height:5px}
-.hero-particles span:nth-child(6){left:68%;animation-delay:-4.5s;background:var(--lavanda);width:4px;height:4px}
-.hero-particles span:nth-child(7){left:80%;animation-delay:-10s;background:var(--teal-light)}
-.hero-particles span:nth-child(8){left:92%;animation-delay:-2.5s;background:var(--coral);width:5px;height:5px}
-@keyframes floatUp{
-  0%{transform:translateY(0) scale(.6);opacity:0}
-  10%{opacity:.5}
-  85%{opacity:.4}
-  100%{transform:translateY(-110vh) scale(1.1);opacity:0}
-}
+/* PILARES */
+.pilar{background:var(--card);border-radius:16px;border:1px solid var(--border);margin-bottom:1rem;overflow:hidden;transition:box-shadow 0.2s}
+.pilar:hover{box-shadow:0 4px 20px rgba(0,0,0,0.08)}
+.pilar-header{padding:1rem 1.25rem;cursor:pointer;display:flex;align-items:center;gap:12px;user-select:none}
+.pilar-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.pilar-meta{flex:1;min-width:0}
+.pilar-title{font-size:0.95rem;font-weight:700;color:var(--text)}
+.pilar-sub{font-size:0.72rem;color:var(--muted);margin-top:2px;font-weight:500}
+.pilar-right{display:flex;gap:6px;align-items:center;flex-shrink:0}
+.badge{font-size:0.65rem;padding:3px 8px;border-radius:20px;font-weight:700}
+.b-urg{background:#FECACA;color:#991B1B}
+.b-proc{background:#DBEAFE;color:#1D4ED8}
+.b-pend{background:#F3F4F6;color:#374151}
+.b-done{background:#DCFCE7;color:#166534}
+.chevron{font-size:1.1rem;color:var(--muted);transition:transform 0.25s;flex-shrink:0;font-weight:600}
+.chevron.open{transform:rotate(180deg)}
 
-.logo{
-  position:relative;z-index:1;
-  display:inline-block;
-  font-family:'DM Serif Display',Georgia,serif;
-  font-size:clamp(3.2rem,11vw,5.8rem);
-  font-weight:400;
-  letter-spacing:-.025em;
-  line-height:1;
-  color:var(--white);
-  text-shadow:0 6px 40px rgba(46,125,123,.18);
-}
-.logo .dot{
-  color:var(--coral);
-  display:inline-block;
-  text-shadow:0 0 24px rgba(232,146,124,.55);
-}
+.pilar-body{display:none;border-top:1px solid var(--border);padding:1rem 1.25rem}
+.pilar-body.open{display:block}
+.info-bar{font-size:0.72rem;color:var(--muted);margin-bottom:6px;font-weight:500}
+.prog-wrap{height:6px;border-radius:3px;background:#F3F4F6;margin-bottom:0.75rem;overflow:hidden}
+.prog-fill{height:6px;border-radius:3px;transition:width 0.6s ease}
+.prog-label{font-size:0.65rem;color:var(--muted);margin-bottom:10px;font-weight:600}
 
-.hero-sub{
-  position:relative;z-index:1;
-  margin-top:16px;
-  font-size:clamp(.78rem,2.8vw,.98rem);
-  letter-spacing:.26em;
-  text-transform:uppercase;
-  color:var(--muted);
-  font-weight:500;
-}
+.sec-title{font-size:0.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin:0.75rem 0 0.35rem;padding-bottom:3px;border-bottom:1px solid var(--border)}
+.task{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-bottom:1px solid #F9FAFB}
+.task:last-child{border-bottom:none}
+.task-st{font-size:0.6rem;padding:2px 7px;border-radius:20px;font-weight:700;flex-shrink:0;margin-top:3px;white-space:nowrap}
+.task-text{font-size:0.8rem;color:var(--text);flex:1;line-height:1.45}
+.task-owner{font-size:0.65rem;color:var(--muted);flex-shrink:0;margin-top:3px;font-weight:600;max-width:85px;text-align:right}
 
-.hero-line{
-  position:relative;z-index:1;
-  width:90px;height:2px;margin:26px auto 32px;
-  background:linear-gradient(90deg,transparent,var(--teal-light),transparent);
-}
-.hero-line::after{
-  content:"";position:absolute;inset:-4px 0;
-  background:linear-gradient(90deg,transparent,var(--teal-light),transparent);
-  filter:blur(8px);opacity:.7;
-}
+/* FOOTER */
+.site-footer{background:#fff;border-top:1px solid var(--border);padding:1.25rem 2rem;text-align:center;font-size:0.72rem;color:var(--muted)}
+.site-footer strong{color:var(--azul)}
 
-.hero-actions{
-  position:relative;z-index:1;
-  display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
-  margin-top:6px;
-}
-.btn-hero{
-  position:relative;
-  display:inline-flex;align-items:center;justify-content:center;gap:10px;
-  min-width:240px;
-  padding:16px 28px;
-  border-radius:13px;
-  border:1px solid rgba(79,169,167,.42);
-  background:linear-gradient(135deg,rgba(46,125,123,.22),rgba(46,125,123,.05));
-  color:var(--white);
-  font-family:inherit;font-size:.95rem;font-weight:600;letter-spacing:.015em;
-  text-decoration:none;
-  transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;
-  overflow:hidden;
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  box-shadow:0 10px 34px rgba(46,125,123,.2),inset 0 1px 0 rgba(255,255,255,.07);
-}
-.btn-hero::before{
-  content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;
-  background:linear-gradient(100deg,transparent 20%,rgba(240,244,248,.28) 50%,transparent 80%);
-  transform:skewX(-18deg);
-  animation:shimmer 3.6s ease-in-out infinite;
-}
-@keyframes shimmer{
-  0%{left:-120%}
-  60%{left:140%}
-  100%{left:140%}
-}
-.btn-hero:hover{
-  transform:translateY(-2px);
-  border-color:var(--teal-light);
-  box-shadow:0 16px 44px rgba(46,125,123,.38),inset 0 1px 0 rgba(255,255,255,.1);
-}
-.btn-hero.coral{
-  border-color:rgba(232,146,124,.42);
-  background:linear-gradient(135deg,rgba(232,146,124,.22),rgba(232,146,124,.05));
-  box-shadow:0 10px 34px rgba(232,146,124,.2),inset 0 1px 0 rgba(255,255,255,.07);
-}
-.btn-hero.coral:hover{
-  border-color:var(--coral);
-  box-shadow:0 16px 44px rgba(232,146,124,.38),inset 0 1px 0 rgba(255,255,255,.1);
-}
-.btn-hero .ico{font-size:1.05rem;line-height:1}
-
-/* ================================================================
-   SECTION HEADER (shared)
-   ================================================================ */
-.section{margin:76px auto 0;animation:fadeUp 1.1s cubic-bezier(.22,.61,.36,1) both}
-.section-title-wrap{display:flex;align-items:center;gap:20px;margin-bottom:28px;padding:0 4px}
-.section-title{
-  font-family:'DM Serif Display',Georgia,serif;
-  font-size:clamp(1.55rem,4.4vw,2.05rem);
-  font-weight:400;
-  color:var(--white);
-  letter-spacing:-.015em;
-  white-space:nowrap;
-}
-.section-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(46,125,123,.7),transparent)}
-
-/* ================================================================
-   PLAN DE NEGOCIOS
-   ================================================================ */
-.plan-card{
-  position:relative;
-  padding:40px 34px;
-  border-radius:22px;
-  background:
-    radial-gradient(700px 240px at 85% 0%,rgba(46,125,123,.22),transparent 70%),
-    linear-gradient(135deg,rgba(46,125,123,.14),rgba(46,125,123,.03));
-  border:1px solid rgba(46,125,123,.28);
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  box-shadow:
-    0 24px 70px rgba(0,0,0,.4),
-    0 0 0 1px rgba(255,255,255,.02) inset,
-    0 1px 0 rgba(255,255,255,.06) inset;
-  overflow:hidden;
-  transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease;
-}
-.plan-card:hover{
-  transform:translateY(-3px);
-  border-color:rgba(79,169,167,.55);
-  box-shadow:
-    0 32px 80px rgba(46,125,123,.34),
-    0 0 0 1px rgba(79,169,167,.12) inset,
-    0 1px 0 rgba(255,255,255,.09) inset;
-}
-.plan-eyebrow{
-  display:inline-block;
-  font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--teal-soft);font-weight:600;
-  margin-bottom:10px;
-}
-.plan-title{
-  font-family:'DM Serif Display',Georgia,serif;
-  font-size:clamp(1.75rem,5vw,2.35rem);
-  font-weight:400;line-height:1.1;
-  margin-bottom:12px;letter-spacing:-.015em;
-}
-.plan-desc{
-  color:var(--muted);
-  font-size:1rem;
-  margin-bottom:28px;
-  max-width:560px;
-}
-.plan-btn{
-  position:relative;
-  display:inline-flex;align-items:center;gap:12px;
-  padding:15px 28px;
-  border-radius:12px;
-  background:linear-gradient(135deg,var(--teal),var(--teal-light));
-  color:var(--white);
-  font-family:inherit;font-size:.95rem;font-weight:600;letter-spacing:.01em;
-  text-decoration:none;
-  box-shadow:
-    0 14px 36px rgba(46,125,123,.38),
-    inset 0 1px 0 rgba(255,255,255,.22);
-  transition:transform .3s ease,box-shadow .3s ease;
-  overflow:hidden;
-}
-.plan-btn::before{
-  content:"";position:absolute;top:0;left:-120%;width:55%;height:100%;
-  background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.32) 50%,transparent 80%);
-  transform:skewX(-18deg);
-  animation:shimmer 3.2s ease-in-out infinite;
-}
-.plan-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:
-    0 18px 46px rgba(46,125,123,.55),
-    inset 0 1px 0 rgba(255,255,255,.3);
-}
-.plan-btn .ico{font-size:1.1rem;line-height:1}
-
-/* ================================================================
-   AUDIENCE GRID
-   ================================================================ */
-.grid{display:grid;grid-template-columns:1fr;gap:22px}
-@media(min-width:760px){.grid{grid-template-columns:1fr 1fr}}
-
-.audience-card{
-  position:relative;
-  padding:32px 28px 28px;
-  border-radius:20px;
-  background:linear-gradient(155deg,rgba(240,244,248,.045),rgba(240,244,248,.015));
-  border:1px solid rgba(240,244,248,.08);
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  box-shadow:
-    0 18px 46px rgba(0,0,0,.35),
-    inset 0 1px 0 rgba(255,255,255,.04);
-  transition:transform .4s ease,box-shadow .4s ease,border-color .4s ease;
-  display:flex;flex-direction:column;gap:14px;
-  overflow:hidden;
-  animation:fadeUp .85s cubic-bezier(.22,.61,.36,1) both;
-}
-
-/* gradient border (shown on hover) via double-mask trick */
-.audience-card::before{
-  content:"";
-  position:absolute;inset:0;
-  border-radius:inherit;
-  padding:1.5px;
-  background:linear-gradient(135deg,var(--teal-light),var(--coral));
-  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;
-  mask-composite:exclude;
-  opacity:0;
-  transition:opacity .4s ease;
-  pointer-events:none;
-}
-.audience-card:hover{transform:translateY(-5px)}
-.audience-card:hover::before{opacity:1}
-
-/* subtle radial glow in corner, per variant */
-.audience-card::after{
-  content:"";position:absolute;top:0;right:0;width:60%;height:60%;
-  background:radial-gradient(circle at top right,currentColor,transparent 65%);
-  opacity:.08;pointer-events:none;
-  transition:opacity .4s ease;
-}
-.audience-card:hover::after{opacity:.16}
-
-/* ============ Variant: teal ============ */
-.audience-card.teal{color:var(--teal-light)}
-.audience-card.teal::before{background:linear-gradient(135deg,var(--teal-light),var(--coral))}
-.audience-card.teal:hover{box-shadow:0 24px 60px rgba(46,125,123,.38),inset 0 1px 0 rgba(255,255,255,.06)}
-.audience-card.teal .audience-icon{filter:drop-shadow(0 6px 20px rgba(46,125,123,.5))}
-.audience-card.teal .audience-btn:hover{background:rgba(46,125,123,.18);border-color:var(--teal-light);color:var(--teal-soft)}
-
-/* ============ Variant: coral ============ */
-.audience-card.coral{color:var(--coral)}
-.audience-card.coral::before{background:linear-gradient(135deg,var(--coral),var(--lavanda))}
-.audience-card.coral:hover{box-shadow:0 24px 60px rgba(232,146,124,.32),inset 0 1px 0 rgba(255,255,255,.06)}
-.audience-card.coral .audience-icon{filter:drop-shadow(0 6px 20px rgba(232,146,124,.5))}
-.audience-card.coral .audience-btn:hover{background:rgba(232,146,124,.18);border-color:var(--coral);color:var(--coral-soft)}
-
-/* ============ Variant: lavanda ============ */
-.audience-card.lavanda{color:var(--lavanda)}
-.audience-card.lavanda::before{background:linear-gradient(135deg,var(--lavanda),var(--teal-light))}
-.audience-card.lavanda:hover{box-shadow:0 24px 60px rgba(155,142,196,.32),inset 0 1px 0 rgba(255,255,255,.06)}
-.audience-card.lavanda .audience-icon{filter:drop-shadow(0 6px 20px rgba(155,142,196,.5))}
-.audience-card.lavanda .audience-btn:hover{background:rgba(155,142,196,.2);border-color:var(--lavanda);color:var(--lavanda-light)}
-
-/* ============ Variant: teal-light (US/English) ============ */
-.audience-card.teal-light{color:var(--teal-soft)}
-.audience-card.teal-light::before{background:linear-gradient(135deg,var(--teal-soft),var(--teal-light))}
-.audience-card.teal-light:hover{box-shadow:0 24px 60px rgba(107,196,194,.3),inset 0 1px 0 rgba(255,255,255,.06)}
-.audience-card.teal-light .audience-icon{filter:drop-shadow(0 6px 20px rgba(107,196,194,.5))}
-.audience-card.teal-light .audience-btn:hover{background:rgba(107,196,194,.18);border-color:var(--teal-soft);color:var(--teal-soft)}
-
-/* ============ Variant: coral-soft (Instituciones) ============ */
-.audience-card.coral-soft{color:var(--coral-soft)}
-.audience-card.coral-soft::before{background:linear-gradient(135deg,var(--coral-soft),var(--coral))}
-.audience-card.coral-soft:hover{box-shadow:0 24px 60px rgba(242,179,161,.3),inset 0 1px 0 rgba(255,255,255,.06)}
-.audience-card.coral-soft .audience-icon{filter:drop-shadow(0 6px 20px rgba(242,179,161,.5))}
-.audience-card.coral-soft .audience-btn:hover{background:rgba(242,179,161,.18);border-color:var(--coral-soft);color:var(--coral-soft)}
-
-.audience-icon{
-  font-size:2.9rem;line-height:1;
-  position:relative;z-index:1;
-}
-.audience-title{
-  font-family:'DM Serif Display',Georgia,serif;
-  font-size:1.55rem;font-weight:400;
-  color:var(--white);letter-spacing:-.01em;
-  position:relative;z-index:1;line-height:1.2;
-}
-.audience-sub{
-  color:var(--muted);font-size:.9rem;
-  margin-top:-4px;position:relative;z-index:1;
-  max-width:360px;
-}
-.audience-btn{
-  margin-top:auto;align-self:flex-start;
-  display:inline-flex;align-items:center;gap:10px;
-  padding:12px 20px;
-  border-radius:11px;
-  border:1px solid rgba(240,244,248,.14);
-  background:rgba(240,244,248,.035);
-  color:var(--white);
-  font-family:inherit;font-size:.88rem;font-weight:600;letter-spacing:.01em;
-  text-decoration:none;
-  transition:all .3s ease;
-  position:relative;z-index:1;
-}
-.audience-btn .arrow{transition:transform .3s ease}
-.audience-btn:hover .arrow{transform:translateX(4px)}
-
-/* ================================================================
-   FOOTER
-   ================================================================ */
-footer{
-  margin-top:96px;
-  text-align:center;
-  padding:34px 16px 12px;
-  border-top:1px solid var(--line);
-  color:var(--muted);
-  font-size:.82rem;letter-spacing:.04em;
-  animation:fadeUp 1.2s cubic-bezier(.22,.61,.36,1) both;
-  animation-delay:.4s;
-}
-footer strong{color:var(--white);font-weight:600;letter-spacing:.02em}
-.foot-sep{margin:0 10px;opacity:.45}
-.foot-row{margin-bottom:8px}
-.foot-row:last-child{color:var(--muted-2);font-size:.76rem}
-
-/* ================================================================
-   ANIMATIONS & STAGGER
-   ================================================================ */
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(26px)}
-  to{opacity:1;transform:translateY(0)}
-}
-.section:nth-of-type(1){animation-delay:.08s}
-.section:nth-of-type(2){animation-delay:.18s}
-.audience-card:nth-child(1){animation-delay:.28s}
-.audience-card:nth-child(2){animation-delay:.36s}
-.audience-card:nth-child(3){animation-delay:.44s}
-.audience-card:nth-child(4){animation-delay:.52s}
-.audience-card:nth-child(5){animation-delay:.60s}
-
-/* ================================================================
-   MOBILE (Samsung Note 10+ ~412px)
-   ================================================================ */
-@media(max-width:520px){
-  body{padding:0 14px 50px}
-  .hero{padding:64px 4px 44px}
-  .hero-actions{flex-direction:column;align-items:stretch;gap:12px}
-  .btn-hero{min-width:0;width:100%;padding:15px 20px;font-size:.92rem}
-  .section{margin-top:60px}
-  .section-title-wrap{gap:14px;margin-bottom:22px}
-  .section-title{font-size:1.5rem}
-  .plan-card{padding:30px 24px;border-radius:18px}
-  .plan-desc{font-size:.95rem;margin-bottom:22px}
-  .plan-btn{width:100%;justify-content:center;padding:14px 22px}
-  .audience-card{padding:28px 24px 24px;border-radius:18px}
-  .audience-icon{font-size:2.6rem}
-  .audience-title{font-size:1.4rem}
-  .audience-btn{width:100%;justify-content:center}
-  footer{margin-top:72px}
-  .foot-sep{display:none}
-  .foot-row{display:block}
-}
-
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
-  .hero-particles{display:none}
-}
-
-/* ================================================================
-   PDF MODAL (PDF.js lightbox)
-   ================================================================ */
-.pdf-modal{
-  position:fixed;inset:0;z-index:1000;
-  background:
-    radial-gradient(900px 500px at 50% 0%,rgba(46,125,123,.18),transparent 70%),
-    rgba(8,12,16,.97);
-  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-  display:none;
-  flex-direction:column;
-}
-.pdf-modal.open{display:flex;animation:pdfFade .28s cubic-bezier(.22,.61,.36,1) both}
-@keyframes pdfFade{from{opacity:0}to{opacity:1}}
-body.modal-open{overflow:hidden;touch-action:none}
-
-.pdf-modal-header{
-  flex-shrink:0;
-  display:flex;align-items:center;gap:14px;
-  padding:14px 22px;
-  background:linear-gradient(180deg,rgba(13,19,24,.95),rgba(13,19,24,.72));
-  border-bottom:1px solid var(--line);
-  box-shadow:0 12px 40px rgba(0,0,0,.35);
-}
-.pdf-modal-title{
-  flex:1;min-width:0;
-  font-family:'DM Serif Display',Georgia,serif;
-  font-size:1.08rem;font-weight:400;
-  color:var(--white);letter-spacing:-.01em;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
-.pdf-modal-controls{
-  display:flex;align-items:center;gap:8px;
-  flex-shrink:0;
-}
-.pdf-nav,.pdf-close{
-  width:40px;height:40px;
-  border-radius:11px;
-  font-family:inherit;
-  cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:all .25s ease;
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-}
-.pdf-nav{
-  border:1px solid rgba(79,169,167,.38);
-  background:linear-gradient(135deg,rgba(46,125,123,.22),rgba(46,125,123,.06));
-  color:var(--white);
-  font-size:1.35rem;line-height:1;
-  box-shadow:0 6px 18px rgba(46,125,123,.22),inset 0 1px 0 rgba(255,255,255,.06);
-}
-.pdf-nav:hover:not(:disabled){
-  transform:translateY(-1px);
-  border-color:var(--teal-light);
-  box-shadow:0 10px 26px rgba(46,125,123,.38),inset 0 1px 0 rgba(255,255,255,.1);
-}
-.pdf-nav:disabled{opacity:.3;cursor:not-allowed}
-.pdf-page-info{
-  font-size:.86rem;color:var(--muted);
-  min-width:58px;text-align:center;
-  font-variant-numeric:tabular-nums;
-  letter-spacing:.02em;
-}
-.pdf-close{
-  border:1px solid rgba(232,146,124,.42);
-  background:linear-gradient(135deg,rgba(232,146,124,.22),rgba(232,146,124,.06));
-  color:var(--white);
-  font-size:1.05rem;
-  box-shadow:0 6px 18px rgba(232,146,124,.22),inset 0 1px 0 rgba(255,255,255,.06);
-  margin-left:6px;
-}
-.pdf-close:hover{
-  transform:rotate(90deg);
-  border-color:var(--coral);
-  box-shadow:0 10px 26px rgba(232,146,124,.38),inset 0 1px 0 rgba(255,255,255,.1);
-}
-
-.pdf-modal-body{
-  flex:1;min-height:0;
-  position:relative;
-  overflow:auto;
-  display:flex;align-items:flex-start;justify-content:center;
-  padding:24px;
-  -webkit-overflow-scrolling:touch;
-}
-#pdfCanvas{
-  display:block;
-  max-width:100%;
-  height:auto;
-  background:#fff;
-  border-radius:6px;
-  box-shadow:
-    0 32px 90px rgba(0,0,0,.65),
-    0 0 0 1px rgba(255,255,255,.04);
-}
-.pdf-loader{
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  color:var(--muted);
-  font-size:.88rem;letter-spacing:.05em;
-  pointer-events:none;
-  background:transparent;
-}
-.pdf-loader.hidden{display:none}
-.pdf-loader::before{
-  content:"";
-  width:26px;height:26px;
-  border-radius:50%;
-  border:2px solid rgba(79,169,167,.22);
-  border-top-color:var(--teal-light);
-  animation:pdfSpin .9s linear infinite;
-  margin-right:14px;
-}
-@keyframes pdfSpin{to{transform:rotate(360deg)}}
-
-@media(max-width:520px){
-  .pdf-modal-header{padding:10px 12px;gap:8px}
-  .pdf-modal-title{font-size:.92rem}
-  .pdf-nav,.pdf-close{width:36px;height:36px;border-radius:10px}
-  .pdf-nav{font-size:1.2rem}
-  .pdf-close{font-size:.95rem;margin-left:4px}
-  .pdf-page-info{font-size:.78rem;min-width:46px}
-  .pdf-modal-body{padding:12px}
+@media(max-width:640px){
+  .mv-grid{grid-template-columns:1fr}
+  .kpi-row{grid-template-columns:repeat(2,1fr)}
+  .hero,.main{padding-left:1rem;padding-right:1rem}
+  .site-header{padding:1rem}
+  .task-owner{display:none}
 }
 </style>
 </head>
 <body>
-  <div class="container">
 
-    <!-- ============ HERO ============ -->
-    <header class="hero">
-      <div class="hero-particles" aria-hidden="true">
-        <span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span>
-      </div>
-      <h1 class="logo">Imagina-T<span class="dot">.</span></h1>
-      <div class="hero-sub">Portal de Recursos &mdash; Fundadores</div>
-      <div class="hero-line" aria-hidden="true"></div>
-      <div class="hero-actions">
-        <a class="btn-hero" href="https://imagintpend.netlify.app" target="_blank" rel="noopener">
-          <span class="ico">📋</span><span>Tareas Pendientes</span>
-        </a>
-        <a class="btn-hero coral" href="https://imaginat-analisis-rev00.netlify.app" target="_blank" rel="noopener">
-          <span class="ico">📊</span><span>Análisis Base de Datos</span>
-        </a>
-      </div>
-    </header>
-
-    <!-- ============ PLAN DE NEGOCIOS ============ -->
-    <section class="section" aria-labelledby="plan-heading">
-      <div class="plan-card">
-        <span class="plan-eyebrow">Documento maestro</span>
-        <h2 id="plan-heading" class="plan-title">Plan de Negocios</h2>
-        <p class="plan-desc">Documento maestro &mdash; versión vigente.</p>
-        <a class="plan-btn"
-           href="./docs/Plan%20de%20Negocios%20ImaginaT%20AC.pdf"
-           target="_blank" rel="noopener"
-           data-pdf-modal
-           data-pdf-title="Plan de Negocios — Imagina-T A.C.">
-          <span class="ico">📄</span><span>Abrir documento</span>
-        </a>
-      </div>
-    </section>
-
-    <!-- ============ PRESENTACIONES POR AUDITORIO ============ -->
-    <section class="section" aria-labelledby="aud-heading">
-      <div class="section-title-wrap">
-        <h2 id="aud-heading" class="section-title">Presentaciones por Auditorio</h2>
-        <div class="section-line" aria-hidden="true"></div>
-      </div>
-      <div class="grid">
-
-        <article class="audience-card teal">
-          <div class="audience-icon">🏦</div>
-          <h3 class="audience-title">Inversionistas y Donadores</h3>
-          <p class="audience-sub">Capital, impacto social y estructura financiera.</p>
-          <a class="audience-btn"
-             href="./docs/Inversionistas%20y%20Donadores.pdf"
-             target="_blank" rel="noopener"
-             data-pdf-modal
-             data-pdf-title="Inversionistas y Donadores">
-            Ver presentación <span class="arrow">→</span>
-          </a>
-        </article>
-
-        <article class="audience-card coral">
-          <div class="audience-icon">👨‍👩‍👧</div>
-          <h3 class="audience-title">Familias</h3>
-          <p class="audience-sub">Acompañamiento y desarrollo infantil con IA.</p>
-          <a class="audience-btn"
-             href="./docs/Familia.pdf"
-             target="_blank" rel="noopener"
-             data-pdf-modal
-             data-pdf-title="Familias">
-            Ver presentación <span class="arrow">→</span>
-          </a>
-        </article>
-
-        <article class="audience-card lavanda">
-          <div class="audience-icon">🔬</div>
-          <h3 class="audience-title">Profesionales Clínicos</h3>
-          <p class="audience-sub">Evidencia, metodología y aplicación clínica.</p>
-          <a class="audience-btn"
-             href="./docs/Profesionales%20clinicos.pdf"
-             target="_blank" rel="noopener"
-             data-pdf-modal
-             data-pdf-title="Profesionales Clínicos">
-            Ver presentación <span class="arrow">→</span>
-          </a>
-        </article>
-
-        <article class="audience-card teal-light">
-          <div class="audience-icon">🇺🇸</div>
-          <h3 class="audience-title">US / English Audience</h3>
-          <p class="audience-sub">Imagina-T's mission and impact for US partners.</p>
-          <a class="audience-btn"
-             href="./docs/US%20English%20Audience.pdf"
-             target="_blank" rel="noopener"
-             data-pdf-modal
-             data-pdf-title="US / English Audience">
-            View presentation <span class="arrow">→</span>
-          </a>
-        </article>
-
-        <article class="audience-card coral-soft">
-          <div class="audience-icon">🏫</div>
-          <h3 class="audience-title">Instituciones</h3>
-          <p class="audience-sub">Alcance institucional y alianzas estratégicas.</p>
-          <a class="audience-btn"
-             href="./docs/Instituciones.pdf"
-             target="_blank" rel="noopener"
-             data-pdf-modal
-             data-pdf-title="Instituciones">
-            Ver presentación <span class="arrow">→</span>
-          </a>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- ============ FOOTER ============ -->
-    <footer>
-      <div class="foot-row">
-        <strong>Fundación Imagina-T A.C.</strong>
-        <span class="foot-sep">|</span>
-        RFC: FIM2504161H5
-      </div>
-      <div class="foot-row">
-        Uso interno &mdash; Fundadores
-        <span class="foot-sep">·</span>
-        Actualizado abril 2026
-      </div>
-    </footer>
-
+<header class="site-header">
+  <div>
+    <div class="logo"><span class="azul">Imagina</span><span class="rosa">-T</span></div>
+    <div class="logo-sub">Portal de Fundadores · RFC FIM2504161H5</div>
   </div>
+  <div class="header-badge">Marco de Gobierno V3</div>
+</header>
 
-  <!-- ============ PDF MODAL (PDF.js lightbox) ============ -->
-  <div id="pdfModal" class="pdf-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pdfModalTitle">
-    <div class="pdf-modal-header">
-      <div class="pdf-modal-title" id="pdfModalTitle">Documento</div>
-      <div class="pdf-modal-controls">
-        <button type="button" class="pdf-nav prev" aria-label="Página anterior">‹</button>
-        <span class="pdf-page-info" aria-live="polite">—</span>
-        <button type="button" class="pdf-nav next" aria-label="Página siguiente">›</button>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="pivot-note">
+      <strong>Pivote estratégico Mayo 2026:</strong> Plataforma para <em>todos los niños</em>, integrando de forma inclusiva a la comunidad neurodivergente. — <strong>Fundadores</strong>
+    </div>
+    <div class="mv-grid">
+      <div class="mv-card">
+        <div class="mv-label m">MISIÓN APROBADA</div>
+        <div class="mv-text">Acercar apoyo, orientación y recursos que impulsen el desarrollo neurológico de manera accesible, humana e inclusiva para todos los niños y sus familias.</div>
       </div>
-      <button type="button" class="pdf-close" aria-label="Cerrar">✕</button>
+      <div class="mv-card">
+        <div class="mv-label v">VISIÓN APROBADA</div>
+        <div class="mv-text">Transformar el futuro de la infancia creando herramientas inclusivas que comprendan la forma única en que cada niño aprende, siente y se desarrolla.</div>
+      </div>
     </div>
-    <div class="pdf-modal-body">
-      <canvas id="pdfCanvas"></canvas>
-      <div class="pdf-loader">Cargando documento</div>
-    </div>
+    <div class="kpi-row" id="kpis"></div>
   </div>
+</section>
 
-  <script>
-  (function(){
-    const PDFJS_SRC='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
-    const PDFJS_WORKER='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+<main class="main">
+  <div id="pilares"></div>
+</main>
 
-    const modal=document.getElementById('pdfModal');
-    const canvas=document.getElementById('pdfCanvas');
-    const ctx=canvas.getContext('2d');
-    const titleEl=modal.querySelector('.pdf-modal-title');
-    const pageInfo=modal.querySelector('.pdf-page-info');
-    const prevBtn=modal.querySelector('.pdf-nav.prev');
-    const nextBtn=modal.querySelector('.pdf-nav.next');
-    const closeBtn=modal.querySelector('.pdf-close');
-    const bodyEl=modal.querySelector('.pdf-modal-body');
-    const loader=modal.querySelector('.pdf-loader');
+<footer class="site-footer">
+  <strong>Fundación Imagina-T A.C.</strong> · RFC FIM2504161H5 · Marco de Gobierno 6 Pilares V3 · Actualizado 11 Mayo 2026
+</footer>
 
-    let pdfDoc=null,currentPage=1,totalPages=1,rendering=false,pendingPage=null,pdfJsReady=null,lastFocus=null;
+<script>
+const PILARES=[
+{id:'P1',col:'#B1CDEC',icon:'⚖️',title:'Pilar 1 — Gobierno & Legal',sub:'Constitución · RFC · bancos · donataria · contabilidad',info:'Acta ✓ · RFC ✓ · CLUNI ✓ · Donataria SAT ✓ · BBVA activo',
+sections:[
+{label:'Completado',tasks:[
+{st:'done',text:'Verificar status Registro Público A.C.',owner:'Sofía/Eleazar'},
+{st:'done',text:'Apertura cuenta bancaria institucional BBVA',owner:'Sofía/Analilia'},
+{st:'done',text:'Confirmar RFC ante SAT — régimen sin fines de lucro',owner:'Eleazar'},
+{st:'done',text:'Iniciar trámite CLUNI ante INDESOL',owner:'Sofía/Eleazar'},
+{st:'done',text:'Solicitar Autorización Donataria ante SAT',owner:'Eleazar/Sofía'},
+{st:'done',text:'Presentar propuesta formal a Fundación Spencer',owner:'JV'},
+{st:'done',text:'Propuesta Patrick J. McGovern Foundation — ENVIADA',owner:'JV'},
+]},
+{label:'Urgente',tasks:[
+{st:'urg',text:'Definir flujo pasarela de pago con contador — sin resolver en última junta',owner:'JV/Eleazar'},
+{st:'urg',text:'Estrategia donadores privados locales — mapeo TJ/BC',owner:'Ivonne'},
+]},
+{label:'En proceso',tasks:[
+{st:'proc',text:'Contabilidad operativa — ingresos, egresos, cumplimiento fiscal',owner:'Eleazar'},
+{st:'proc',text:'Investigar subsidios DIF BC / Bienestar / Economía BC',owner:'JV'},
+]},
+]},
+{id:'P2',col:'#20AEE5',icon:'📱',title:'Pilar 2 — Plataforma & Producto',sub:'App · algoritmo · módulos · contenido · especialistas · Zorbek',info:'5 tipos de recursos · 7 módulos · Flutter + AWS · Demo en tablet activo',
+sections:[
+{label:'Completado',tasks:[
+{st:'done',text:'Llamadas de sincronización semanales Zorbek ↔ JV',owner:'Semanal'},
+{st:'done',text:'Demo funcional instalado en tablet — ligado al servidor',owner:'Zorbek'},
+{st:'done',text:'Confirmar dirección del proyecto con Alex',owner:'Alex'},
+{st:'done',text:'Completar banco de datos para algoritmos',owner:'Alexa/Mario/JLV'},
+{st:'done',text:'Video historia de origen (storytelling)',owner:'Ivonne/JV'},
+]},
+{label:'Urgente',tasks:[
+{st:'urg',text:'Definir parámetros del algoritmo de recomendación',owner:'Mario/Mesa esp.'},
+]},
+{label:'En proceso',tasks:[
+{st:'proc',text:'Organizar mesa de trabajo con especialistas',owner:'JV'},
+{st:'proc',text:'Completar y validar las 7 pruebas de diagnóstico temprano',owner:'JL/Zorbek'},
+{st:'proc',text:'Mecánica de revisión 2do grupo especialistas — banco de contenido',owner:'Alexa'},
+{st:'proc',text:'Mecánica de trabajo para etiquetas (#tags) — motor de búsqueda',owner:'Alexa'},
+{st:'proc',text:'Estandarizar términos en banco de datos Excel',owner:'Alexa/Mesa'},
+{st:'proc',text:'Crear grupos de trabajo por módulo — Alexa coordina juntas virtuales',owner:'Alexa'},
+]},
+{label:'Pendiente',tasks:[
+{st:'pend',text:'Zorbek envía tutoriales de gestión de contenido al equipo',owner:'Zorbek'},
+{st:'pend',text:'Asignar persona responsable de carga de contenido',owner:'JV/Sofía'},
+{st:'pend',text:'Agendar videollamada Q&A con persona asignada post-tutoriales',owner:'Zorbek/JV'},
+{st:'pend',text:'Confirmar fechas tentativas de entrega de material por grupo',owner:'Alexa'},
+{st:'pend',text:'Iniciar carga de material validado desde día 1',owner:'Resp. CM'},
+{st:'pend',text:'Desarrollar manual de usuario + chatbot',owner:'Zorbek'},
+{st:'pend',text:'Métricas de monitoreo y KPIs (+25% diagnósticos tempranos)',owner:'Zorbek/JV'},
+{st:'pend',text:'Pruebas BETA con grupo piloto en Tijuana',owner:'Zorbek/JV'},
+{st:'pend',text:'Alta en Google Play Store y Apple App Store',owner:'Zorbek/Sofía'},
+]},
+]},
+{id:'P3',col:'#E4C8E0',icon:'🔧',title:'Pilar 3 — Infraestructura Operativa',sub:'Web · Stripe · WhatsApp · VoIP · pagos recurrentes · bot Sanse',info:'Opera independiente del desarrollo de la app',
+sections:[
+{label:'Urgente',tasks:[
+{st:'urg',text:'Configurar Stripe: BBVA destino · link donación reutilizable · bot Sanse WhatsApp',owner:'JV/Zorbek'},
+{st:'urg',text:'Completar sección "Nuestra Propuesta" en imaginatfund.com (vacía)',owner:'Zorbek/Sofía'},
+{st:'urg',text:'Agregar versión bilingüe completa ES/EN al sitio web',owner:'Zorbek'},
+]},
+{label:'Pendiente',tasks:[
+{st:'pend',text:'Definir números VoIP US/MX para comunicación oficial',owner:'JV'},
+{st:'pend',text:'Configurar WhatsApp Business oficial Imagina-T',owner:'JV/Zorbek'},
+{st:'pend',text:'Calendario de pagos recurrentes (hosting, dominio, servicios)',owner:'Eleazar/JV'},
+{st:'pend',text:'Agregar links descarga App al sitio web',owner:'Zorbek'},
+{st:'pend',text:'Sección Testimonios + funcionalidades app en sitio web',owner:'Sofía/Zorbek'},
+{st:'pend',text:'Definir correos institucionales oficiales del equipo',owner:'JV/Eleazar'},
+]},
+]},
+{id:'P4',col:'#B6DABC',icon:'🎯',title:'Pilar 4 — Impacto & Beneficiarios',sub:'Piloto TJ · 100 familias · Gate 0→1 · lanzamiento oficial',info:'Meta: 100 beneficiarios · Junio 2026',
+sections:[
+{label:'En proceso',tasks:[
+{st:'proc',text:'Fase pre-lanzamiento: lista espera · redes · pre-registro activo',owner:'JV/CM/Sofía'},
+]},
+{label:'Pendiente',tasks:[
+{st:'pend',text:'Checkpoint Gate 0→1: ¿App? ¿100+ pre-registros? ¿Fondos mínimos?',owner:'JV/Consejo'},
+{st:'pend',text:'Selección y convocatoria de 100 familias piloto en Tijuana',owner:'Alex/Sofía'},
+{st:'pend',text:'Evento de presentación a medios (TV, Radio, Redes TJ)',owner:'Alejandro/Ivonne'},
+{st:'pend',text:'Lanzamiento Piloto Oficial — 100 beneficiarios · app activa',owner:'Consejo/JV'},
+{st:'pend',text:'Evaluar actividades presenciales comunitarias (CATEM/Sindicato)',owner:'Alejandro'},
+]},
+]},
+{id:'P5',col:'#FCE67D',icon:'💰',title:'Pilar 5 — Recursos & Sostenibilidad',sub:'Equipo · finanzas · recaudación · oficina · manual operaciones',info:'Meta total: $12M MXN · Meta Q1-Q2 2026: $2,925,000 MXN',
+sections:[
+{label:'Completado',tasks:[
+{st:'done',text:'VOB contratación Community Manager ($6,500/mes)',owner:'Alex/Sofía'},
+]},
+{label:'En proceso',tasks:[
+{st:'proc',text:'DESPEGUE: logo · identidad · análisis canales · narrativa',owner:'Ivonne/Sofía'},
+]},
+{label:'Pendiente',tasks:[
+{st:'pend',text:'Sesión fotográfica profesional ($3,000–$8,000 MXN)',owner:'Sofía/Alex'},
+{st:'pend',text:'Contratar Creador de Contenido Visual Jr.',owner:'Sofía/Alex'},
+{st:'pend',text:'Definir ubicación y condiciones para oficina Imagina-T',owner:'Sofía/Alejandro'},
+{st:'pend',text:'Elaborar Manual de Operaciones de la fundación',owner:'Eleazar'},
+]},
+]},
+{id:'P6',col:'#F296B7',icon:'📣',title:'Pilar 6 — Comunidad & Comunicación',sub:'RRSS · contenido · prensa · identidad · LinkedIn · campañas',info:'Emocional 40% · Educativo 30% · Comunidad 30%',
+sections:[
+{label:'Urgente',tasks:[
+{st:'urg',text:'Crear y activar perfil LinkedIn de Imagina-T A.C.',owner:'Sofía/CM'},
+]},
+{label:'En proceso',tasks:[
+{st:'proc',text:'Estrategia RRSS Mayo 2026 — engagement · comunidad · posicionamiento',owner:'Ivonne/CM'},
+]},
+{label:'Pendiente',tasks:[
+{st:'pend',text:'Producción flyer físico y digital',owner:'Ivonne/Diseñador'},
+{st:'pend',text:'Diseño de programas propios e insignias Imagina-T',owner:'Sofía/Ivonne'},
+{st:'pend',text:'Calendario editorial semanal activo (Lunes–Domingo)',owner:'CM/Ivonne'},
+{st:'pend',text:'Activación campañas digitales Trafiker (post beta)',owner:'Ivonne/JV'},
+{st:'pend',text:'Comunicados de prensa para Lanzamiento Oficial',owner:'Alejandro/Ivonne'},
+{st:'pend',text:'Vinculación con empresas + primera campaña de impacto social',owner:'Ivonne/JV'},
+]},
+]},
+];
 
-    function loadPdfJs(){
-      if(pdfJsReady)return pdfJsReady;
-      pdfJsReady=new Promise((resolve,reject)=>{
-        if(window.pdfjsLib){resolve(window.pdfjsLib);return}
-        const s=document.createElement('script');
-        s.src=PDFJS_SRC;
-        s.onload=()=>{
-          if(!window.pdfjsLib){reject(new Error('pdfjsLib missing'));return}
-          window.pdfjsLib.GlobalWorkerOptions.workerSrc=PDFJS_WORKER;
-          resolve(window.pdfjsLib);
-        };
-        s.onerror=()=>reject(new Error('PDF.js load failed'));
-        document.head.appendChild(s);
-      });
-      return pdfJsReady;
-    }
+const stMap={
+  done:{label:'✓ done',cls:'b-done'},
+  urg:{label:'⚡ urg',cls:'b-urg'},
+  proc:{label:'↻ proc',cls:'b-proc'},
+  pend:{label:'○ pend',cls:'b-pend'}
+};
 
-    function renderPage(num){
-      if(!pdfDoc)return;
-      rendering=true;
-      pdfDoc.getPage(num).then(page=>{
-        const padH=window.innerWidth<=520?24:48;
-        const padV=window.innerWidth<=520?24:48;
-        const maxW=Math.max(240,bodyEl.clientWidth-padH);
-        const maxH=Math.max(240,bodyEl.clientHeight-padV);
-        const base=page.getViewport({scale:1});
-        const fit=Math.min(maxW/base.width,maxH/base.height);
-        const dpr=Math.min(window.devicePixelRatio||1,2);
-        const viewport=page.getViewport({scale:fit*dpr});
-        canvas.width=viewport.width;
-        canvas.height=viewport.height;
-        canvas.style.width=(viewport.width/dpr)+'px';
-        canvas.style.height=(viewport.height/dpr)+'px';
-        return page.render({canvasContext:ctx,viewport}).promise;
-      }).then(()=>{
-        rendering=false;
-        loader.classList.add('hidden');
-        currentPage=num;
-        updateControls();
-        if(pendingPage!==null){
-          const p=pendingPage;pendingPage=null;renderPage(p);
-        }
-      }).catch(err=>{
-        rendering=false;
-        console.error('PDF render error',err);
-      });
-    }
+function cnt(p,st){return p.sections.flatMap(s=>s.tasks).filter(t=>t.st===st).length}
+function pct(p){const all=p.sections.flatMap(s=>s.tasks);return Math.round(all.filter(t=>t.st==='done').length/all.length*100)}
 
-    function queuePage(num){
-      if(num<1||num>totalPages)return;
-      if(rendering){pendingPage=num;return}
-      renderPage(num);
-    }
+let totDone=0,totUrg=0,totProc=0,totPend=0;
+PILARES.forEach(p=>{totDone+=cnt(p,'done');totUrg+=cnt(p,'urg');totProc+=cnt(p,'proc');totPend+=cnt(p,'pend');});
 
-    function updateControls(){
-      pageInfo.textContent=currentPage+' / '+totalPages;
-      prevBtn.disabled=currentPage<=1;
-      nextBtn.disabled=currentPage>=totalPages;
-    }
+document.getElementById('kpis').innerHTML=`
+<div class="kpi-card"><span class="kpi-num" style="color:#166534">${totDone}</span><span class="kpi-label">Completadas</span></div>
+<div class="kpi-card"><span class="kpi-num" style="color:#991B1B">${totUrg}</span><span class="kpi-label">Urgentes</span></div>
+<div class="kpi-card"><span class="kpi-num" style="color:#1D4ED8">${totProc}</span><span class="kpi-label">En proceso</span></div>
+<div class="kpi-card"><span class="kpi-num" style="color:#374151">${totPend}</span><span class="kpi-label">Pendientes</span></div>`;
 
-    function openPdf(url,title){
-      lastFocus=document.activeElement;
-      titleEl.textContent=title||'Documento';
-      modal.classList.add('open');
-      modal.setAttribute('aria-hidden','false');
-      document.body.classList.add('modal-open');
-      loader.classList.remove('hidden');
-      loader.textContent='Cargando documento';
-      pageInfo.textContent='—';
-      prevBtn.disabled=true;nextBtn.disabled=true;
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      closeBtn.focus();
+const container=document.getElementById('pilares');
+PILARES.forEach(p=>{
+  const total=p.sections.flatMap(s=>s.tasks).length;
+  const done=cnt(p,'done'),urg=cnt(p,'urg'),proc=cnt(p,'proc'),pend=cnt(p,'pend'),pc=pct(p);
+  const div=document.createElement('div');
+  div.className='pilar';
+  div.innerHTML=`
+    <div class="pilar-header" onclick="toggle('b-${p.id}','c-${p.id}')">
+      <div class="pilar-icon" style="background:${p.col}30">${p.icon}</div>
+      <div class="pilar-meta">
+        <div class="pilar-title">${p.title}</div>
+        <div class="pilar-sub">${p.sub}</div>
+      </div>
+      <div class="pilar-right">
+        ${urg?`<span class="badge b-urg">⚡ ${urg}</span>`:''}
+        ${proc?`<span class="badge b-proc">↻ ${proc}</span>`:''}
+        ${pend?`<span class="badge b-pend">○ ${pend}</span>`:''}
+        <span class="badge b-done">✓ ${done}/${total}</span>
+        <span class="chevron" id="c-${p.id}">▾</span>
+      </div>
+    </div>
+    <div class="pilar-body" id="b-${p.id}">
+      <div class="info-bar">${p.info}</div>
+      <div class="prog-wrap"><div class="prog-fill" style="width:${pc}%;background:${p.col}"></div></div>
+      <div class="prog-label">${pc}% completado · ${total} tareas totales</div>
+      ${p.sections.map(s=>`
+        <div class="sec-title">${s.label}</div>
+        ${s.tasks.map(t=>`
+          <div class="task">
+            <span class="task-st badge ${stMap[t.st].cls}">${stMap[t.st].label}</span>
+            <span class="task-text">${t.text}</span>
+            <span class="task-owner">${t.owner}</span>
+          </div>`).join('')}
+      `).join('')}
+    </div>`;
+  container.appendChild(div);
+});
 
-      loadPdfJs()
-        .then(pdfjs=>pdfjs.getDocument(url).promise)
-        .then(doc=>{
-          pdfDoc=doc;
-          totalPages=doc.numPages;
-          currentPage=1;
-          renderPage(1);
-        })
-        .catch(err=>{
-          console.error('PDF load error',err);
-          loader.textContent='No se pudo cargar el documento.';
-        });
-    }
-
-    function closeModal(){
-      modal.classList.remove('open');
-      modal.setAttribute('aria-hidden','true');
-      document.body.classList.remove('modal-open');
-      pdfDoc=null;currentPage=1;totalPages=1;pendingPage=null;
-      if(lastFocus&&typeof lastFocus.focus==='function')lastFocus.focus();
-    }
-
-    document.addEventListener('click',e=>{
-      const trigger=e.target.closest('[data-pdf-modal]');
-      if(!trigger)return;
-      e.preventDefault();
-      const url=trigger.getAttribute('href');
-      const title=trigger.getAttribute('data-pdf-title');
-      openPdf(url,title);
-    });
-
-    closeBtn.addEventListener('click',closeModal);
-    prevBtn.addEventListener('click',()=>queuePage(currentPage-1));
-    nextBtn.addEventListener('click',()=>queuePage(currentPage+1));
-
-    document.addEventListener('keydown',e=>{
-      if(!modal.classList.contains('open'))return;
-      if(e.key==='Escape'){closeModal();e.preventDefault()}
-      else if(e.key==='ArrowLeft')queuePage(currentPage-1);
-      else if(e.key==='ArrowRight')queuePage(currentPage+1);
-    });
-
-    let resizeTimer;
-    window.addEventListener('resize',()=>{
-      if(!pdfDoc||!modal.classList.contains('open'))return;
-      clearTimeout(resizeTimer);
-      resizeTimer=setTimeout(()=>renderPage(currentPage),200);
-    });
-  })();
-  </script>
+function toggle(bId,cId){
+  const b=document.getElementById(bId),c=document.getElementById(cId);
+  const o=b.classList.contains('open');
+  b.classList.toggle('open',!o);
+  c.classList.toggle('open',!o);
+}
+</script>
 </body>
 </html>

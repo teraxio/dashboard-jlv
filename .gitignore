@@ -1,0 +1,36 @@
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*~
+
+# Netlify
+.netlify/
+netlify.toml.local
+
+# Secretos / entorno
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+credentials.json
+secrets.json
+
+# Dependencias (si alguna vez se añaden)
+node_modules/
+package-lock.json.bak
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporales
+tmp/
+.cache/

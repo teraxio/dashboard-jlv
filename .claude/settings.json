@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Read(//Users/laclavees12345/Dashboard-JLV/**)",
+      "Edit(//Users/laclavees12345/Dashboard-JLV/**)",
+      "Write(//Users/laclavees12345/Dashboard-JLV/**)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(netlify deploy:*)",
+      "Bash(netlify status)",
+      "Bash(open index.html)",
+      "Bash(open imagina-t-portal.html)",
+      "Bash(python3 -m http.server:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)"
+    ]
+  },
+  "env": {
+    "PROJECT_NAME": "Dashboard-JLV",
+    "DEPLOY_TARGET": "dashboard-jlv.netlify.app",
+    "TASKS_FILE": "tasks.json",
+    "ECC_HOOK_PROFILE": "minimal"
+  }
+}
